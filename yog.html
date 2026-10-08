@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15293f">
+<title>Yog' tayyorlash — kompyuter</title>
+<style>
+:root{--bg:#eef2f7;--panel:#fff;--ink:#17212e;--muted:#5b6878;--line:#dbe2ea;--head:#15293f;--a:#e3a43a;--b:#3a8fd6;--c:#2fa36b;--bad:#d64545;--ok:#1f9d5c;--sh:0 8px 24px rgba(21,41,63,.08),0 1px 3px rgba(21,41,63,.06)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;color:var(--ink);font:18px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  background:radial-gradient(1200px 500px at 85% -10%,#dfe9f6 0%,transparent 60%),linear-gradient(180deg,#eef2f7 0%,#f7f9fc 100%);min-height:100vh}
+header{position:relative;overflow:hidden;color:#fff;padding:18px 32px 0;
+  background:linear-gradient(120deg,#0f2236 0%,#17324f 55%,#22507a 100%)}
+header::before,header::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+header::before{width:420px;height:420px;right:-120px;top:-260px;border:46px solid rgba(227,164,58,.16)}
+header::after{width:260px;height:260px;right:220px;top:-190px;border:28px solid rgba(58,143,214,.18)}
+.hrow{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:16px}
+.logo{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#f0b24a,#c97f17);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.logo svg{width:34px;height:34px}
+header h1{margin:0;font-size:1.6rem;letter-spacing:-.01em}
+header .by{font-size:.92rem;opacity:.75}
+.clock{text-align:right}
+.clock b{font-size:1.5rem;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.clock div{font-size:.9rem;opacity:.75}
+header button{font:inherit;font-size:.95rem;background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.3);border-radius:10px;padding:8px 14px;cursor:pointer}
+header button:hover{background:rgba(255,255,255,.16)}
+nav{position:relative;display:flex;gap:6px;margin-top:16px}
+nav button{font:inherit;font-size:1.02rem;font-weight:600;color:rgba(255,255,255,.75);background:transparent;border:0;border-radius:12px 12px 0 0;padding:12px 22px;cursor:pointer}
+nav button[aria-pressed="true"]{background:#eef2f7;color:var(--head)}
+nav .sp{flex:1}
+.setg{max-width:1880px;margin:0 auto;padding:22px 28px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:22px;align-items:start}
+.grp{margin:16px 0 6px;font-size:1rem;color:var(--head);display:flex;align-items:center;gap:8px}
+.grp i{width:12px;height:12px;border-radius:3px;background:var(--a)}.grp i.d{background:var(--c)}
+.it{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;background:#fbfcfe}
+.it .nm{font-weight:700}.it .pr{font-weight:500;color:var(--muted);font-size:.92rem;margin-left:6px}
+.it .ds{color:var(--muted);font-size:.9rem}
+.it .ac{display:flex;gap:6px;flex:none}
+.mini{font:inherit;font-size:.9rem;border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;cursor:pointer}
+.mini.del{color:var(--bad)}
+.warn{background:#fff6dd;color:#7a5200;border:1px solid #f1d58a;border-radius:12px;padding:12px 14px;margin:0 0 12px;font-size:1rem}
+.warn.danger{background:#fdecec;color:#9b1c1c;border-color:#f3b4b4}
+.adrow{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) auto;gap:8px;margin-bottom:8px;align-items:stretch}
+.adtot{margin-top:6px;color:var(--muted)}
+.adset{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) auto;gap:8px;margin-bottom:8px;align-items:center}
+@media (max-width:760px){.adrow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}.adrow>.inp:first-child{grid-column:1/-1}}
+.inp.bad{border-color:var(--bad)!important;background:#fff1f1}
+.xr{margin-top:10px}.xr .mini{height:46px}
+.seg{display:flex;gap:6px}.seg button{flex:1;font:inherit;font-size:.95rem;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--head);color:#fff;border-color:var(--head)}
+.frm .f2>div{margin-bottom:10px}
+.lang{display:flex;gap:4px;margin:0 8px 8px 0;align-self:center}
+.lang button{border:1.5px solid rgba(255,255,255,.3);border-radius:9px;padding:6px 12px;font-size:.9rem;color:#fff;background:transparent;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#e3a43a;border-color:#e3a43a;color:#1b1205}
+main{max-width:1880px;margin:0 auto;padding:22px 28px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}
+.card{background:var(--panel);border:1px solid rgba(219,226,234,.8);border-radius:18px;padding:20px 22px;margin-bottom:18px;box-shadow:var(--sh)}
+.card h2{margin:0 0 14px;font-size:1.15rem;display:flex;align-items:center;gap:10px}
+.n{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(145deg,#22507a,#15293f);color:#fff;font-size:.95rem;flex:none}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-items:end}
+.lbls{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:.82rem;color:var(--muted);margin:0 0 -4px;padding-left:2px}
+.lbls span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trow{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,2fr);gap:8px;margin-bottom:8px;align-items:end}
+.trow .tr3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.trow .inp input,.trow .inp select{padding:9px 8px;font-size:1.05rem}
+.trow .inp span{padding:0 6px;font-size:.85rem}.trow .inp .pre{padding:0 0 0 8px;font-weight:700;color:var(--head)}
+.trow .x,.adrow .x{border:0;background:#fdecec;color:var(--bad);border-radius:10px;font-size:1.1rem;padding:0 12px;cursor:pointer;height:100%}
+.trow.xt{grid-template-columns:minmax(0,1.1fr) minmax(0,2fr) auto}
+.comp.c{border-color:var(--c)}.out1{background:#e7f6ee;border-color:#bfe5cf}.out1 input{font-weight:700;color:#145c37}
+.thd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}.thd .t{margin:0}
+.restl{display:none!important;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);margin:0}.restl .inp{width:118px}.restl .inp input{padding:6px 4px;font-size:1rem;width:100%}.restl .inp span{padding:0 6px}
+.out1.zero{background:#f1f3f6;border-color:var(--line)}.out1.zero input{color:var(--muted);font-weight:500}
+.out1.done{background:#e7f6ee;border-color:#7cc9a0}
+.rz.zero{background:#f1f3f6;color:var(--muted)}
+.comp{background:linear-gradient(90deg,rgba(227,164,58,.07),transparent 40%);border-radius:0 12px 12px 0}
+.comp.b{background:linear-gradient(90deg,rgba(58,143,214,.08),transparent 40%)}
+.comp.c{background:linear-gradient(90deg,rgba(47,163,107,.08),transparent 40%)}
+.comp .t{color:var(--head);font-size:1.1rem}
+.comp:not(.b):not(.c) .t::before,.comp.b .t::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--a);margin-right:8px;vertical-align:middle}
+.comp.b .t::before{background:var(--b)}
+.rz{margin:-2px 0 10px;font-size:1rem;color:#145c37;background:#e7f6ee;border-radius:9px;padding:6px 10px}.rz:empty{display:none}.rz b{font-size:1.1rem}
+.tinfo{margin-top:8px;font-size:1rem;color:var(--head);background:#f2f6fb;border-radius:10px;padding:8px 12px}
+.tinfo:empty{display:none}
+.tinfo b{font-size:1.08rem}
+.big2{font-size:1.15rem;line-height:1.5}
+.rep{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:6px 0 14px}
+.kpi>div{border-radius:14px;padding:14px 16px;background:linear-gradient(160deg,#f3f7fb,#e8eff7)}
+.kpi .lb{color:var(--muted);font-size:.92rem}.kpi .vv{font-size:2rem;font-weight:800;line-height:1.15}.kpi .vv small{font-size:1rem;color:var(--muted)}
+.arcEd{border:0;background:#eef2f7;border-radius:8px;padding:4px 9px;font:inherit;font-size:.95rem;cursor:pointer}
+.lock{font-size:.9rem;color:var(--muted);margin-left:auto;font-weight:400}
+
+label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:6px;font-weight:500}
+.inp{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:11px;background:#fafbfc}
+.inp:focus-within{border-color:var(--a)}
+.inp input,.inp select{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:1.1rem;padding:11px 12px;color:inherit;outline:none}
+.inp span{padding:0 12px;color:var(--muted);font-size:.95rem;white-space:nowrap}
+.comp{border-left:6px solid var(--a);padding:6px 0 6px 14px;margin:6px 0 14px}
+.comp.b{border-color:var(--b)}
+.comp .t{font-weight:700;margin-bottom:8px}
+.norm{color:var(--muted);font-size:.95rem;margin-top:8px}
+.res{position:sticky;top:18px}
+.res .card{padding:24px 26px;border-top:6px solid var(--a)}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.tile{border-radius:16px;padding:16px 18px;background:linear-gradient(160deg,#fff8ea,#fbefd5);border:1px solid #f1dfb8}
+.tile.b{background:linear-gradient(160deg,#eef6fd,#dcecfa);border-color:#c8def3}
+.pbar{display:flex;height:14px;border-radius:8px;overflow:hidden;background:#e6ebf1;margin:0 0 16px}
+.pbar i{display:block;height:100%;transition:width .3s}
+.pbar .x{background:linear-gradient(90deg,#f0b24a,#d98f22)}.pbar .y{background:linear-gradient(90deg,#4ea1e3,#2f7fc4)}
+.calcs{max-width:1880px;margin:0 auto;padding:22px 28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}
+.calcs .card{min-height:100%}
+.out{margin-top:6px;border-radius:14px;background:linear-gradient(160deg,#f3f7fb,#e8eff7);padding:14px 16px}
+.out .lb{color:var(--muted);font-size:.92rem}
+.out .vv{font-size:2.2rem;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.out .vv small{font-size:1rem;color:var(--muted);font-weight:600}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f2>div,.calcs .card>div.fl{margin-bottom:12px}
+footer{max-width:1880px;margin:0 auto;padding:4px 28px 28px;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between}
+@media print{header nav,header button,#setBtn,.row,#shiftMsg,footer{display:none!important}body{background:#fff}.card{box-shadow:none}main,.calcs{padding:0}}
+.tile .nm{font-weight:600;color:var(--muted);font-size:.95rem}
+.tile .v{font-size:2.6rem;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:4px 0}
+.tile .v small{font-size:1.1rem;font-weight:600;color:var(--muted)}
+.tile .s{font-size:1rem}
+.tile .z{font-size:1.05rem;margin-top:6px}
+.tile .z b{font-size:1.2rem}
+.line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:1.05rem}
+.line b{font-size:1.2rem}
+.okb{color:var(--ok);font-weight:700}.badb{color:var(--bad);font-weight:700}
+.msg{background:#fdecec;color:#8f1f1f;border-radius:12px;padding:12px 14px;margin:10px 0;font-size:1rem}
+.okmsg{background:#e7f6ee;color:#145c37;border-radius:12px;padding:12px 14px;margin:10px 0;font-size:1rem}
+.btn{font:inherit;font-size:1.05rem;font-weight:600;border:0;border-radius:12px;padding:13px 20px;background:var(--head);color:#fff;cursor:pointer}
+.btn.sec{background:#e6eaf0;color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.wide{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;font-size:.98rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.9rem}
+td.num{text-align:right;white-space:nowrap}
+.empty{color:var(--muted);padding:6px 0}
+textarea{width:100%;min-height:160px;font:inherit;font-size:.95rem;border:1.5px solid var(--line);border-radius:11px;padding:10px;background:#fafbfc}
+dialog{border:0;border-radius:16px;padding:22px;max-width:640px;width:92%}
+dialog::backdrop{background:rgba(20,28,40,.45)}
+@media (min-width:1600px){main{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;padding:26px 36px}body{font-size:19px}.trow{grid-template-columns:minmax(0,1fr) minmax(0,2.2fr)}}
+@media (max-width:1050px){main{grid-template-columns:minmax(0,1fr)}.res{position:static}.calcs,.setg{grid-template-columns:minmax(0,1fr)}}
+/* ===== TELEFON ===== */
+@media (max-width:760px){
+  body{font-size:17px}
+  header{padding:12px 16px 0;padding-top:calc(12px + env(safe-area-inset-top,0px))}
+  header::before,header::after{display:none}
+  .hrow{flex-direction:column;align-items:flex-start;gap:8px}
+  header h1{font-size:1.3rem}.logo{width:46px;height:46px}.logo svg{width:28px;height:28px}
+  .clock{position:static;align-self:stretch;display:flex;align-items:baseline;gap:10px;text-align:left;padding:6px 10px;border-radius:10px;background:rgba(255,255,255,.08)}
+  .clock b{font-size:1.1rem}.clock div{font-size:.85rem}
+  nav{flex-wrap:wrap;gap:4px;margin-top:12px}
+  nav button{flex:1;min-width:44%;padding:11px 10px;font-size:.95rem;border-radius:11px}
+  nav .sp{display:none}
+  nav #prtBtn{display:none}
+  .lang{order:-1;margin:0 0 4px}
+  main,.calcs,.setg{padding:14px 14px 90px;gap:14px}
+  .card{padding:15px 15px;border-radius:14px}
+  .card h2{font-size:1.08rem}
+  .grid4,.f2{grid-template-columns:minmax(0,1fr);gap:10px}
+  .grid3{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1fr);gap:6px}
+  .grid3 label{font-size:.78rem;min-height:2.3em;display:flex;align-items:flex-end;margin-bottom:4px;line-height:1.15}
+  .grid3 .inp input,.grid3 .inp select{padding:10px 6px;font-size:16px}.grid3 .inp span{padding:0 5px;font-size:.8rem}
+  .grid4{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.grid4>div:first-child{grid-column:1/-1}
+  label{overflow-wrap:anywhere}
+  .grid4 .xr,.xr{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .rep{grid-template-columns:minmax(0,1fr)}
+  .trow,.trow.xt{grid-template-columns:minmax(0,1fr) auto;gap:6px}.trow>.inp{grid-column:1/2}.trow .tr3{grid-column:1/-1;gap:6px}
+  .trow:not(.xt)>.inp{grid-column:1/-1}
+  .trow.xt .x{grid-column:2;grid-row:1;height:44px}
+  .trow .inp input{font-size:17px;padding:10px 6px}
+  .lbl-m{display:block}
+  nav button[data-v]{min-width:46%}
+  /* arxiv telefonda kartochka ko'rinishida */
+  #arc table,#arc tbody,#arc tr,#arc td,.rtab table,.rtab tbody,.rtab tr,.rtab td{display:block;width:100%}
+  #arc thead,.rtab thead{display:none}
+  #arc tr,.rtab tr{border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:10px;background:#fbfcfe}
+  #arc td,.rtab td{border:0;padding:3px 0;text-align:left!important;white-space:normal}
+  #arc td[data-l]::before,.rtab td[data-l]::before{content:attr(data-l)': ';color:var(--muted);font-size:.85rem}
+  .kpi .vv{font-size:1.7rem}
+  .inp input,.inp select{font-size:17px;padding:13px 12px}
+  .big{grid-template-columns:1fr;gap:12px}
+  .tile .v{font-size:2.1rem}
+  .res .card{border-top-width:5px}
+  .row{gap:8px}.row .btn{flex:1;min-width:46%;padding:13px 12px;font-size:1rem}
+  table{font-size:.86rem}th,td{padding:7px 6px}
+  footer{flex-direction:column;gap:4px;padding:4px 16px 24px;font-size:.82rem}
+  dialog{width:94%;max-width:none;padding:18px;border-radius:16px}
+  .seg button{padding:12px}
+  /* pastki yopishgan menyu */
+  nav{position:sticky;top:0;z-index:30;background:linear-gradient(120deg,#0f2236,#17324f);padding-bottom:2px}
+}
+@media (max-width:420px){nav button{font-size:.88rem;min-width:46%}.tile .v{font-size:1.9rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#1b1205" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3.5 4.4 6 7.9 6 11a6 6 0 0 1-12 0c0-3.1 2.5-6.6 6-11z"/><path d="M9.2 14.6a2.9 2.9 0 0 0 2.8 2.4"/></svg></div>
+      <div><h1 data-t="title"></h1><div class="by"><span data-t="unit"></span> · Abduzuxurov Umidjon</div></div>
+    </div>
+    <div class="clock"><b id="clk">--:--</b><div id="dte"></div></div>
+  </div>
+  <nav>
+    <button data-v="prep" aria-pressed="true" data-t="vPrep"></button>
+    <button data-v="rep" aria-pressed="false" data-t="vRep"></button>
+    <button data-v="calc" aria-pressed="false" data-t="vCalc"></button>
+    <button data-v="set" aria-pressed="false" data-t="vSet"></button>
+    <span class="sp"></span>
+    <span class="lang"><button data-lang="uz">UZ</button><button data-lang="ru">RU</button></span>
+    <button id="prtBtn" style="border-radius:10px;padding:8px 14px;margin-bottom:8px;border:1.5px solid rgba(255,255,255,.3)" data-t="print"></button>
+  </nav>
+</header>
+
+<main id="vPrep">
+  <!-- ===== CHAP: KIRITISH ===== -->
+  <div>
+    <div class="card">
+      <h2><span class="n">1</span><span data-t="h1"></span></h2>
+      <div class="grid3">
+        <div><label for="g" data-t="grade"></label><div class="inp"><select id="g"></select></div></div>
+        <div><label for="M" data-t="amount"></label><div class="inp"><input id="M" inputmode="decimal" value="300"><span data-t="u_t"></span></div></div>
+        <div><label for="tv" data-t="targetV"></label><div class="inp"><input id="tv" inputmode="decimal"><span>cSt</span></div></div>
+      </div>
+      <div class="norm" id="norm"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">2</span><span data-t="h2"></span></h2>
+      <div class="comp">
+        <div class="thd"><div class="t" id="nA">1-komponent</div><label class="restl"><span data-t="rest"></span><span class="inp"><span class="pre">→</span><input id="rA" inputmode="decimal" placeholder="30"><span data-t="u_cm"></span></span></label></div>
+        <div class="trow">
+          <div class="inp"><select id="tA"></select></div>
+          <div class="tr3">
+            <div class="lbls"><span data-t="lZs"></span><span data-t="lZe"></span><span data-t="visc"></span></div>
+            <div class="inp"><input id="zA" inputmode="decimal"><span data-t="u_cm"></span></div>
+            <div class="inp out1" id="eWA"><span class="pre">→</span><input id="eA" readonly tabindex="-1"><span data-t="u_cm"></span></div>
+            <div class="inp"><input id="vA" inputmode="decimal"><span>cSt</span></div>
+          </div>
+        </div>
+        <div id="dAw" hidden style="margin-top:8px"><label for="dA" data-t="dens"></label><div class="inp"><input id="dA" inputmode="decimal"><span>t/m³</span></div></div>
+        <div class="rz" id="rzA"></div>
+        <div id="xA"></div>
+        <button class="mini" id="addA" data-t="addTank" style="margin-top:10px"></button>
+      </div>
+      <div class="comp b">
+        <div class="thd"><div class="t" id="nB">2-komponent</div><label class="restl"><span data-t="rest"></span><span class="inp"><span class="pre">→</span><input id="rB" inputmode="decimal" placeholder="30"><span data-t="u_cm"></span></span></label></div>
+        <div class="trow">
+          <div class="inp"><select id="tB"></select></div>
+          <div class="tr3">
+            <div class="lbls"><span data-t="lZs"></span><span data-t="lZe"></span><span data-t="visc"></span></div>
+            <div class="inp"><input id="zB" inputmode="decimal"><span data-t="u_cm"></span></div>
+            <div class="inp out1" id="eWB"><span class="pre">→</span><input id="eB" readonly tabindex="-1"><span data-t="u_cm"></span></div>
+            <div class="inp"><input id="vB" inputmode="decimal"><span>cSt</span></div>
+          </div>
+        </div>
+        <div id="dBw" hidden style="margin-top:8px"><label for="dB" data-t="dens"></label><div class="inp"><input id="dB" inputmode="decimal"><span>t/m³</span></div></div>
+        <div class="rz" id="rzB"></div>
+        <div id="xB"></div>
+        <button class="mini" id="addB" data-t="addTank" style="margin-top:10px"></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">3</span><span data-t="h3"></span></h2>
+      <div class="comp c">
+      <div class="trow">
+        <div class="inp"><select id="tC"></select></div>
+        <div class="tr3">
+          <div class="lbls"><span data-t="lZ0"></span><span data-t="lZ1"></span><span data-t="visc"></span></div>
+          <div class="inp"><input id="zC" inputmode="decimal" value="0"><span data-t="u_cm"></span></div>
+          <div class="inp out1"><span class="pre">→</span><input id="z1C" readonly tabindex="-1"><span data-t="u_cm"></span></div>
+          <div class="inp"><input id="vC" inputmode="decimal"><span>cSt</span></div>
+        </div>
+      </div>
+      <div class="rz" id="rzC"></div>
+      <div id="dCw" hidden style="margin-top:8px"><label for="dC" data-t="mixDens"></label><div class="inp"><input id="dC" inputmode="decimal"><span>t/m³</span></div></div>
+      <div class="tinfo" id="iC"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="n">4</span><span data-t="h4"></span></h2>
+      <div class="lbls" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) 40px;display:grid;margin-bottom:4px"><span data-t="adName"></span><span data-t="adDose"></span><span data-t="adKg"></span><span></span></div>
+      <div id="adList"></div>
+      <button class="mini" id="addAd" data-t="addAd"></button>
+      <div class="adtot" id="adTot"></div>
+    </div>
+  </div>
+
+  <!-- ===== O'NG: NATIJA ===== -->
+  <div class="res">
+    <div class="card">
+      <h2 data-t="result"></h2>
+      <div id="rTop"></div>
+      <div class="pbar" aria-hidden="true"><i class="x" id="pbA" style="width:50%"></i><i class="y" id="pbB" style="width:50%"></i></div>
+      <div class="big">
+        <div class="tile"><div class="nm" id="rNA">1-komponent</div><div class="v" id="rMA">—</div><div class="s" id="rPA"></div><div class="z" id="rZA"></div></div>
+        <div class="tile b"><div class="nm" id="rNB">2-komponent</div><div class="v" id="rMB">—</div><div class="s" id="rPB"></div><div class="z" id="rZB"></div></div>
+      </div>
+      <div id="rLines"></div>
+      <div id="rMsg"></div>
+      <div class="row">
+        <button class="btn" id="saveBtn" disabled data-t="save"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PASTDA: ARXIV ===== -->
+  <div class="card wide">
+    <h2><span data-t="arc"></span> <span style="font-weight:400;color:var(--muted);font-size:.95rem" data-t="arcLast"></span><button class="mini lock" id="pinBtn" data-t="pinChange"></button></h2>
+    <div id="bkWarn"></div>
+    <div class="row" style="margin:0 0 12px">
+      <button class="btn sec" id="shiftBtn" data-t="shiftBtn"></button>
+      <button class="btn sec" id="csvBtn" data-t="csvBtn"></button>
+      <button class="btn sec" id="bkBtn" data-t="bkBtn"></button>
+      <button class="btn sec" id="rsBtn" data-t="rsBtn"></button>
+      <input type="file" id="rsFile" accept=".json,application/json" hidden>
+    </div>
+    <div id="bkMsg"></div>
+    <div id="shiftMsg"></div>
+    <div id="arc"></div>
+  </div>
+</main>
+
+<div class="calcs rep" id="vRep" hidden>
+  <div class="card">
+    <h2><span class="n">Σ</span><span data-t="repH"></span></h2>
+    <div class="seg" style="margin-bottom:12px"><button id="rmM" data-t="rMonth"></button><button id="rmY" data-t="rYear"></button></div>
+    <div class="fl"><label for="rPer" data-t="rPeriod"></label><div class="inp"><input id="rPer" type="month"><input id="rYr" type="number" min="2020" max="2100" hidden></div></div>
+    <p class="norm" data-t="repP"></p>
+    <div class="row"><button class="btn" id="rCopy" data-t="rCopy"></button><button class="btn sec" id="rCsv" data-t="csvBtn"></button><button class="btn sec" id="rPrint" data-t="print"></button></div>
+    <div id="rMsg2"></div>
+  </div>
+  <div class="card"><div id="repOut"></div></div>
+</div>
+
+<div class="calcs" id="vCalc" hidden>
+  <div class="card">
+    <h2><span class="n">%</span><span data-t="c1H"></span></h2>
+    <div class="fl"><label for="c1A" data-t="c1A"></label><div class="inp"><input id="c1A" inputmode="decimal" value="14.2"><span>cSt</span></div></div>
+    <div class="fl"><label for="c1p" data-t="c1p"></label><div class="inp"><input id="c1p" inputmode="decimal" value="75"><span>%</span></div></div>
+    <div class="fl"><label for="c1B" data-t="c1B"></label><div class="inp"><input id="c1B" inputmode="decimal" value="22.16"><span>cSt</span></div></div>
+    <div class="out" id="c1o"></div>
+  </div>
+  <div class="card">
+    <h2><span class="n">cSt</span><span data-t="c2H"></span></h2>
+    <div class="f2">
+      <div><label for="c2A" data-t="compA"></label><div class="inp"><input id="c2A" inputmode="decimal" value="14.2"><span>cSt</span></div></div>
+      <div><label for="c2B" data-t="compB"></label><div class="inp"><input id="c2B" inputmode="decimal" value="22.16"><span>cSt</span></div></div>
+      <div><label for="c2t" data-t="target"></label><div class="inp"><input id="c2t" inputmode="decimal" value="17"><span>cSt</span></div></div>
+      <div><label for="c2M" data-t="amount"></label><div class="inp"><input id="c2M" inputmode="decimal" value="300"><span data-t="u_t"></span></div></div>
+    </div>
+    <div class="out" id="c2o"></div>
+    <div class="row"><button class="btn" id="c2Go" data-t="toPrep"></button></div>
+  </div>
+  <div class="card">
+    <h2><span class="n">±</span><span data-t="kH"></span></h2>
+    <div class="f2">
+      <div><label for="kM" data-t="kM"></label><div class="inp"><input id="kM" inputmode="decimal" value="300"><span data-t="u_t"></span></div></div>
+      <div><label for="kv" data-t="kV"></label><div class="inp"><input id="kv" inputmode="decimal"><span>cSt</span></div></div>
+      <div><label for="kt" data-t="target"></label><div class="inp"><input id="kt" inputmode="decimal"><span>cSt</span></div></div>
+      <div><label for="kc" data-t="kC"></label><div class="inp"><input id="kc" inputmode="decimal"><span>cSt</span></div></div>
+    </div>
+    <div class="out" id="ko"></div>
+  </div>
+</div>
+
+<div class="setg" id="vSet" hidden>
+  <div class="card">
+    <h2 data-t="tkH"></h2>
+    <div class="row" style="margin:0 0 6px"><button class="btn" id="addSrc" data-t="addSrc"></button><button class="btn sec" id="addDst" data-t="addDst"></button></div>
+    <div id="tkList"></div>
+  </div>
+  <div>
+    <div class="card">
+      <h2 data-t="grH"></h2>
+      <div class="row" style="margin:0 0 10px"><button class="btn" id="addGr" data-t="addGr"></button></div>
+      <div id="grList"></div>
+    </div>
+    <div class="card">
+      <h2 data-t="adH"></h2>
+      <p style="color:var(--muted);margin-top:0" data-t="adHint"></p>
+      <div id="adSet"></div>
+      <div class="row" style="margin:0"><button class="btn" id="adNew" data-t="adNew"></button></div>
+    </div>
+    <div class="card">
+      <h2 data-t="shareH"></h2>
+      <p style="color:var(--muted);margin-top:0" data-t="shareP"></p>
+      <div class="row" style="margin:0"><button class="btn sec" id="setBtn" data-t="impBtn"></button><button class="btn sec" id="expBtn" data-t="expBtn"></button></div>
+      <div id="expMsg"></div>
+    </div>
+  </div>
+</div>
+
+<dialog id="dTk" class="frm">
+  <h2 style="margin-top:0" id="dTkH"></h2>
+  <div class="f2">
+    <div><label for="fName" data-t="fName"></label><div class="inp"><input id="fName"></div></div>
+    <div><label for="fPark" data-t="fPark"></label><div class="inp"><input id="fPark" list="dlPark"></div></div>
+    <div><label for="fProd" data-t="fProd"></label><div class="inp"><input id="fProd" list="dlProd"></div></div>
+    <div><label data-t="fRole"></label><div class="seg"><button id="rSrc" data-t="roleSrc"></button><button id="rDst" data-t="roleDst"></button></div></div>
+    <div><label for="fK" data-t="fK"></label><div class="inp"><input id="fK" inputmode="decimal"><span data-t="tPerCm"></span></div></div>
+    <div><label for="fMax" data-t="fMax"></label><div class="inp"><input id="fMax" inputmode="decimal" placeholder="900"><span data-t="u_cm"></span></div></div>
+    <div><label for="fDead" data-t="fDead"></label><div class="inp"><input id="fDead" inputmode="decimal" value="30"><span data-t="u_cm"></span></div></div>
+    <div><label for="fVisc" data-t="fVisc"></label><div class="inp"><input id="fVisc" inputmode="decimal"><span>cSt</span></div></div>
+  </div>
+  <datalist id="dlPark"></datalist><datalist id="dlProd"></datalist>
+  <div class="empty" id="fCap"></div>
+  <div id="fMsg"></div>
+  <div class="row"><button class="btn" id="fSave" data-t="saveBtn"></button><button class="btn sec" id="fCancel" data-t="close"></button></div>
+</dialog>
+
+<dialog id="dGr" class="frm">
+  <h2 style="margin-top:0" id="dGrH"></h2>
+  <div class="f2">
+    <div><label for="gName" data-t="fName"></label><div class="inp"><input id="gName"></div></div>
+    <div></div>
+    <div><label for="gCA" data-t="gCA"></label><div class="inp"><input id="gCA" list="dlProd"></div></div>
+    <div><label for="gCB" data-t="gCB"></label><div class="inp"><input id="gCB" list="dlProd"></div></div>
+    <div><label for="gMin" data-t="gMin"></label><div class="inp"><input id="gMin" inputmode="decimal"><span>cSt</span></div></div>
+    <div><label for="gMax" data-t="gMax"></label><div class="inp"><input id="gMax" inputmode="decimal"><span>cSt</span></div></div>
+  </div>
+  <div id="gMsg"></div>
+  <div class="row"><button class="btn" id="gSave" data-t="saveBtn"></button><button class="btn sec" id="gCancel" data-t="close"></button></div>
+</dialog>
+
+<dialog id="dPin" class="frm" style="max-width:420px">
+  <h2 style="margin-top:0">🔒 <span id="pinH"></span></h2>
+  <div class="inp"><input id="pinIn" type="password" inputmode="numeric" autocomplete="off" maxlength="8" style="font-size:1.6rem;letter-spacing:.3em;text-align:center"></div>
+  <div id="pinMsg"></div>
+  <div class="row"><button class="btn" id="pinOk">OK</button><button class="btn sec" id="pinNo" data-t="close"></button></div>
+</dialog>
+
+<dialog id="dYes" class="frm" style="max-width:460px">
+  <p id="yesTxt" style="font-size:1.1rem;white-space:pre-line;margin-top:0"></p>
+  <div class="row"><button class="btn" id="yesOk">OK</button><button class="btn sec" id="yesNo" data-t="close"></button></div>
+</dialog>
+
+<dialog id="dArc" class="frm">
+  <h2 style="margin-top:0" data-t="arcEdit"></h2>
+  <div class="f2">
+    <div><label for="aDt" data-t="fDate"></label><div class="inp"><input id="aDt" type="datetime-local"></div></div>
+    <div><label for="aGr" data-t="grade"></label><div class="inp"><input id="aGr"></div></div>
+    <div><label for="aM" data-t="amount"></label><div class="inp"><input id="aM" inputmode="decimal"><span data-t="u_t"></span></div></div>
+    <div><label for="aTv" data-t="viscL"></label><div class="inp"><input id="aTv" inputmode="decimal"><span>cSt</span></div></div>
+    <div><label for="aCA" data-t="compA"></label><div class="inp"><input id="aCA" list="dlProd"></div></div>
+    <div><label for="aMA" data-t="compA"></label><div class="inp"><input id="aMA" inputmode="decimal"><span data-t="u_t"></span></div></div>
+    <div><label for="aCB" data-t="compB"></label><div class="inp"><input id="aCB" list="dlProd"></div></div>
+    <div><label for="aMB" data-t="compB"></label><div class="inp"><input id="aMB" inputmode="decimal"><span data-t="u_t"></span></div></div>
+    <div><label for="aTk" data-t="thTo"></label><div class="inp"><input id="aTk"></div></div>
+    <div><label for="aZ0" data-t="zBefore"></label><div class="inp"><input id="aZ0" inputmode="decimal"><span data-t="u_cm"></span></div></div>
+    <div><label for="aZ1" data-t="zAfter"></label><div class="inp"><input id="aZ1" inputmode="decimal"><span data-t="u_cm"></span></div></div>
+    <div><label for="aNote" data-t="fNote"></label><div class="inp"><input id="aNote"></div></div>
+  </div>
+  <div id="aMsg"></div>
+  <div class="row"><button class="btn" id="aSave" data-t="saveBtn"></button><button class="btn sec" id="aCancel" data-t="close"></button><button class="btn sec" id="aDel" style="color:var(--bad);margin-left:auto" data-t="delRec"></button></div>
+</dialog>
+
+<footer><span data-t="foot"></span><span>© Abduzuxurov Umidjon</span></footer>
+
+<dialog id="dlg">
+  <h2 style="margin-top:0" data-t="setBtn"></h2>
+  <p style="color:var(--muted);margin-top:0" data-th="dlgP"></p>
+  <textarea id="imTxt" spellcheck="false" placeholder='{"tanks":[...],"grades":[...]}'></textarea>
+  <div id="imMsg"></div>
+  <div class="row"><button class="btn" id="imBtn" data-t="imBtn"></button><button class="btn sec" id="dlgClose" data-t="close"></button></div>
+</dialog>
+
+<script>
+/* ===================== YORDAMCHI ===================== */
+const $=id=>document.getElementById(id),K=0.8;
+const L=v=>Math.log10(Math.log10(v+K)),Linv=x=>Math.pow(10,Math.pow(10,x))-K;
+const fmt=(x,d=1)=>x.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d,useGrouping:false}).replace('.',',');
+const num=id=>{const v=String($(id).value).trim().replace(/\s/g,'').replace(',','.');return v===''?NaN:Number(v)};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function getLS(k,d){try{const v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v}catch(e){return d}}
+function setLS(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+
+/* ===================== KALIBROVKA (to'liq versiya bilan bir xil) ===================== */
+const unitMul=t=>(t.unit==='mm'?10:1);
+const isT=t=>t.res==='t';
+// maks. zamer kiritilmagan rezervuarlar uchun standart (9 m = 900 sm) — shundan yuqorisi toshib ketadi
+const DEF_MAXH=900;
+const mxH=t=>t&&t.maxH>0?t.maxH:(t&&t.unit==='mm'?DEF_MAXH*10:DEF_MAXH);
+// rezervuarning eng yuqori ruxsat etilgan zameri (kalibrovka jadvali bo'lsa - jadval oxiri)
+const topH=t=>t.type==='coef'?mxH(t):(t.rows&&t.rows.length?t.rows[t.rows.length-1][0]:NaN);
+function capV(t){if(t.type==='coef')return mxH(t)*unitMul(t)*t.k;const r=t.rows;return r.length?r[r.length-1][1]:NaN}
+function vol(t,h){
+  if(!(h>=0))return NaN;
+  if(t.type==='coef'){if(h>mxH(t)+1e-9)return NaN;return h*unitMul(t)*t.k}
+  const r=t.rows;if(r.length<2||h<r[0][0]||h>r[r.length-1][0])return NaN;
+  for(let i=1;i<r.length;i++)if(h<=r[i][0]){const[h0,v0]=r[i-1],[h1,v1]=r[i];return h1===h0?v1:v0+(h-h0)*(v1-v0)/(h1-h0)}
+  return r[r.length-1][1];
+}
+function hgt(t,v){
+  if(!(v>=-1e-9))return NaN;v=Math.max(0,v);
+  if(t.type==='coef'){const per=unitMul(t)*t.k;if(!(per>0))return NaN;const h=v/per;return(h>mxH(t)+1e-9)?NaN:h}
+  const r=t.rows;if(r.length<2||v<r[0][1]||v>r[r.length-1][1])return NaN;
+  for(let i=1;i<r.length;i++)if(v<=r[i][1]){const[h0,v0]=r[i-1],[h1,v1]=r[i];return v1===v0?h0:h0+(v-v0)*(h1-h0)/(v1-v0)}
+  return r[r.length-1][0];
+}
+
+/* ===================== MA'LUMOTLAR (to'liq versiya bilan umumiy kalitlar) ===================== */
+const PRESET_TANKS=[
+  ...['126p','128p','130p','132p','133p'].map(n=>({name:n,k:0.39,maxH:650,park:'18-park',product:'Ost. masla'})),
+  ...['127p','129p','131p'].map(n=>({name:n,k:0.49,maxH:650,park:'18-park',product:'3-fraksiya'})),
+  ...['298p','299p'].map(n=>({name:n,k:0.39,maxH:650,park:'40-park',product:''})),
+  ...Array.from({length:6},(_,i)=>({name:(300+i)+'p',k:0.29,maxH:450,park:'40-park',product:''})),
+  ...Array.from({length:8},(_,i)=>({name:(306+i)+'p',k:0.29,maxH:450,park:'41-park',product:''})),
+  ...['456p','457p','458p'].map(n=>({name:n,k:0.7,maxH:900,park:'',product:'',dst:true})),
+  ...['325p','326p','327p'].map(n=>({name:n,k:1.5,maxH:0,park:'',product:'И-20А',dst:true})),
+  ...[['453p',0.7],['454p',1.0],['455p',0.7]].map(([n,k])=>({name:n,k,maxH:0,park:'',product:'И-20А',dst:true}))];
+const PRESET_GRADES=[
+  {name:"И-12А",compA:"1-fraksiya",compB:"2-fraksiya",vMin:13,vMax:21},
+  {name:"И-20А",compA:"2-fraksiya",compB:"3-fraksiya",vMin:25,vMax:35},
+  {name:"И-40А",compA:"3-fraksiya",compB:"Ost. masla",vMin:51,vMax:75},
+  {name:"И-50А",compA:"3-fraksiya",compB:"Ost. masla",vMin:75,vMax:95}];
+let tanks=getLS('visc_tanks',[]),grades=getLS('visc_grades',null),arch=getLS('visc_arch',[]);
+if(!Array.isArray(tanks)||!tanks.length){tanks=PRESET_TANKS.map((p,i)=>({id:'t'+Date.now()+'_'+i,name:p.name,type:'coef',unit:'cm',res:'t',k:p.k,maxH:p.maxH,dead:30,role:p.dst?'dst':'src',park:p.park,product:p.product,rows:[]}));setLS('visc_tanks',tanks)}
+if(!Array.isArray(grades)||!grades.length){grades=PRESET_GRADES.map((g,i)=>({id:'g'+(i+1),...g}));setLS('visc_grades',grades)}
+if(!Array.isArray(arch))arch=[];
+const byName=(a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true});
+const FIELDS=['M','tv','zA','vA','dA','zB','vB','dB','zC','vC','dC'],SELS=['g','tA','tB','tC'];
+let st=getLS('visc_pc',{});
+let last=null;
+
+
+/* ===================== MATNLAR (UZ / RU) ===================== */
+const TT={
+ uz:{title:"Yog' tayyorlash",unit:"57/1.2 qurilmasi · 3-sex",vPrep:"Tayyorlash",vCalc:"Kalkulyatorlar",vSet:"Rezervuar va markalar",addTank:"+ yana rezervuar qo'shish",csvBtn:"Excel ga yuklash",bkBtn:"Zaxira faylini saqlash",rsBtn:"Zaxiradan tiklash",
+  bkNever:"Hali zaxira qilinmagan. «Zaxira faylini saqlash» ni bosing va faylni fleshkaga ko'chirib qo'ying.",bkOld:n=>`Oxirgi zaxiradan ${n} kun o'tdi. Yangi zaxira qiling va fleshkaga ko'chiring.`,
+  bkOk:f=>`Zaxira saqlandi: ${f} («Загрузки» papkasida). Uni fleshkaga ko'chirib qo'ying.`,csvOk:f=>`Excel fayli saqlandi: ${f} («Загрузки» papkasida).`,
+  rsErr:"Bu fayl ilovaning zaxira fayli emas.",rsQ:(a,t,g)=>`Zaxirada: arxivda ${a} ta yozuv, ${t} ta rezervuar, ${g} ta marka.\nRezervuar va markalar zaxiradagi bilan almashtiriladi, arxiv qo'shib qo'yiladi. Davom etilsinmi?`,
+  rsOk:(n,tot)=>`Tiklandi: arxivga ${n} ta yangi yozuv qo'shildi (jami ${tot}).`,
+  xGen:"tuzilgan:",h4:"Prisadkalar (qo'shimchalar)",addAd:"+ prisadka qo'shish",adName:"Prisadka",adDose:"Doza",adKg:"Sarfi",u_kg:"kg",adH:"Prisadkalar",adNew:"+ Prisadka qo'shish",adHint:"Doza — tayyor mahsulot massasiga nisbatan %. Masalan: 300 t × 0,3 % = 900 kg. Standart doza har safar avtomatik qo'yiladi.",adDef:"Standart doza, %",adTot:k=>`Jami prisadka: <b>${k} kg</b>`,adNone:"Prisadka qo'shilmaydi — kerak bo'lsa «+ prisadka qo'shish» ni bosing.",byAd:"Prisadkalar sarfi",thAd:"Prisadka",shAd:"Prisadka",adLine:(n,p,k)=>`${n}${p?` · ${p} %`:``}`,xTot:"Jami",xRecs:"Partiyalar",xRep:"Hisobot",xArc:"Arxiv",xArcT:"Yog' tayyorlash arxivi",
+  csvH:["Sana","Marka","Miqdor, t","Qovushqoqlik, cSt","Norma","1-komponent","1-komponent, t","1-komponent: rezervuar (zamer, sm)","2-komponent","2-komponent, t","2-komponent: rezervuar (zamer, sm)","Haydaldi: rezervuar","Zamer oldin, sm","Zamer keyin, sm"],yes:"ha",no:"yo'q",rmTank:"Olib tashlash",tkH:"Rezervuarlar",addSrc:"+ Rezervuar qo'shish — 57/1.2",addDst:"+ Rezervuar qo'shish — 4-sex",
+  grH:"Markalar",addGr:"+ Marka qo'shish",shareH:"Telefon bilan almashish",shareP:"Rezervuar va markalarni telefondagi to'liq versiyaga yuborish yoki undan olish.",impBtn:"Telefondan olish",expBtn:"Telefonga yuborish (nusxalash)",
+  expOk:"Nusxalandi. Telefonda: Rezervuarlar → Ulashish → matnni joylashtirib «Olish».",grpSrc:p=>`57/1.2 · ${p}`,grpNoPark:"57/1.2 · parksiz",grpDst:"4-sex — tayyorlash va jo'natish",
+  edit:"Tahrirlash",del:"O'chirish",delQ:n=>`${n} o'chirilsinmi?`,tkNew:"Yangi rezervuar",tkEdit:n=>`Rezervuar: ${n}`,grNew:"Yangi marka",grEdit:n=>`Marka: ${n}`,
+  fName:"Nomi",fPark:"Park",fProd:"Hozirgi mahsulot",fRole:"Qayerga tegishli",roleSrc:"57/1.2 (fraksiyalar)",roleDst:"4-sex (tayyorlash)",fK:"Kalibrovka",tPerCm:"t / sm",fMax:"Maksimal zamer",fDead:"Qoldiriladi (nasos ololmaydi)",
+  saveBtn:"Saqlash",capTxt:(c)=>`Sig'imi: ${c} t`,tkErr:"Nomi va kalibrovkani (t/sm) kiriting.",tkDup:"Bunday nomli rezervuar bor.",tbl:"jadval bo'yicha kalibrovka (faqat telefon versiyasida o'zgartiriladi)",
+  tkDesc:(k,m,d)=>`${k} t/sm`+(m>0?` · maks. ${m} sm`:'')+` · qoldiriladi ${d} sm`,gCA:"1-komponent",gCB:"2-komponent",gMin:"Norma: kamida",gMax:"Norma: ko'pi bilan",grErr:"Nomi va normani (kamida < ko'pi bilan) kiriting.",grDesc:(a,b,lo,hi)=>`${a} + ${b} · ${lo}–${hi} cSt`,print:"Chop etish",setBtn:"Rezervuar va markalarni olish",
+  h1:"Nima tayyorlaymiz?",grade:"Marka",amount:"Miqdori",targetV:"Kerakli qovushqoqlik",h2:"Qayerdan haydaladi? (откачка)",h3:"Qaysi rezervuarga haydaladi? (откачка)",
+  tank:"Rezervuar",level:"Zamer",visc:"Qovushqoqligi",dens:"Zichligi",levelNow:"Zamer (до барботажа)",mixDens:"Aralashma zichligi",result:"Natija",save:"Arxivga saqlash",
+  arc:"Arxiv",arcLast:"— oxirgi 15 ta",shiftBtn:"Smena hisoboti (nusxalash)",c1H:"Foiz bo'yicha qovushqoqlik",c1A:"1-komponent qovushqoqligi",c1p:"1-komponent ulushi",c1B:"2-komponent qovushqoqligi",
+  c2H:"Kerakli qovushqoqlik uchun foiz",compA:"1-komponent",compB:"2-komponent",target:"Kerakli",toPrep:"Tayyorlashga o'tkazish",kH:"Tayyor partiyani tuzatish",kM:"Partiya",kV:"Laboratoriya natijasi",kC:"Qo'shiladigan komponent",
+  foot:"Hisob: Refutas usuli (ASTM D7152) · ma'lumotlar shu kompyuterda saqlanadi",imBtn:"Olish",close:"Yopish",
+  dlgP:"Telefondagi to'liq versiyada <b>Rezervuarlar → Ulashish → Nusxalash</b> ni bosing, matnni shu yerga joylashtiring va «Olish» ni bosing. Rezervuar va markalarni o'zgartirish to'liq versiyada qilinadi.",
+  choose:"— tanlang —",norm:(a,b)=>`Norma: ${a}–${b} cSt`,needIn:"Miqdor va ikkala komponentning qovushqoqligini kiriting.",
+  noRange:(v,a,b)=>`Bu komponentlar bilan ${v} cSt chiqmaydi: mumkin bo'lgan oraliq ${a}–${b} cSt.`,enterDens:"zichlikni kiriting",badLevel:"zamer noto'g'ri",
+  pump:"Haydaladi (откачка)",short:(n,m,a)=>`${n}: kerak ${m} t, olish mumkin ${a} t`,fit:m=>`Shu rezervuarlar bilan ${m} t tayyorlash`,noFit:(n,f)=>`${n} ga sig'maydi: bo'sh joy ${f} t.`,
+  viscL:"Qovushqoqlik",inNorm:"✓ normada",outNorm:"✗ normadan tashqari",canDo:"Tayyorlash mumkin.",saved:"Arxivga saqlandi.",
+  thDate:"Sana",thGrade:"Marka",thAmt:"Miqdor",thTo:"Haydaldi (откачка)",arcEmpty:"Arxiv hozircha bo'sh.",
+  shNone:"Oxirgi 12 soatda arxivda yozuv yo'q.",shH:d=>`SMENA HISOBOTI · ${d}`,shIn:" · normada",shOut:" · normadan tashqari",shTo:"haydaldi (откачка)",shTot:(n,m)=>`Jami: ${n} ta partiya, ${m} t`,shOk:"Hisobot nusxalandi — Telegramga joylashtirishingiz mumkin.",
+  imErr:"Matn noto'g'ri. To'liq versiyadagi «Nusxalash» natijasini to'liq joylashtiring.",imOk:(t,g)=>`Olindi: ${t} ta rezervuar`+(g!=null?`, ${g} ta marka`:'')+'.',
+  pctErr:"Ulush 0 dan 100 % gacha bo'lishi kerak.",mixV:"Aralashma qovushqoqligi",tgtErr:(a,b)=>`Kerakli qiymat ${a}–${b} cSt oralig'ida bo'lishi kerak.`,
+  kNeed:"Partiya, laboratoriya natijasi, kerakli qiymat va qo'shiladigan komponentni kiriting.",kSame:"Partiya allaqachon kerakli qovushqoqlikda.",
+  kLight:v=>`Qovushqoqlikni pasaytirish kerak: komponent ${v} cSt dan suyuqroq bo'lishi kerak.`,kHeavy:v=>`Qovushqoqlikni oshirish kerak: komponent ${v} cSt dan quyuqroq bo'lishi kerak.`,
+  kAdd:"Qo'shish kerak",kNew:"Yangi partiya",kRes:"Natija (hisob)",
+  vRep:"Hisobot",lZs:"Zamer",lZe:"Qoladi",chip0:a=>`${a} sm — bu rezervuardan olinmaydi`,recH:n=>`Yozuvlar (${n} ta)`,delAll:p=>`${p} — hammasini o'chirish`,delAllQ:(p,n)=>`${p} davridagi ${n} ta yozuv butunlay o'chirilsinmi?\nBuni qaytarib bo'lmaydi. Kerak bo'lsa, avval «Zaxira faylini saqlash» ni bosing.`,delAgain:"Tasdiqlash uchun «O'chirish» ni yana bir marta bosing.",lZ0:"Zamer",lZ1:"Bo'ladi",chipC:(a,b,tot)=>`✓ ${a} → <b>${b} sm</b> bo'ladi (до барботажа) · jami ${tot} t`,barb:"до барботажа — барботажда yana qo'shiladi",chip:(a,b,m)=>`✓ ${a} → <b>${b} sm</b> qoladi · ${m} t olinadi`,zUpd:"Yangi zamerlar oynalarga yozildi.",dupTk:n=>`${n} ikkala fraksiyada tanlangan — bitta rezervuarni ikki joyga qo'ymang.`,lR:"Qoldiq (nasos)",rest:"Nasos qoldig'i",vNowC:"Ichidagi yog'ning qovushqoqligi",fVisc:"Qovushqoqligi (hozirgi)",
+  inf:(h,c,r)=>`Rezervuarda bor: <b>${h} t</b> · olsa bo'ladi: <b>${c} t</b> (nasos ${r} sm gacha oladi)`,
+  infC:(h,f,mx)=>`Hozir bor: <b>${h} t</b> · bo'sh joy: <b>${f} t</b>`+(mx?` (maks. ${mx} sm gacha)`:''),
+  noMax:"maks. zamer kiritilmagan — to'lib ketishi tekshirilmaydi",defMx:" (standart)",
+  zOver:(n,z,m)=>`⚠ <b>${n}</b>: zamer <b>${z} sm</b> — maksimal <b>${m} sm</b> dan katta! Rezervuar toshib ketgan bo'ladi yoki zamer noto'g'ri kiritilgan. Zamerni tekshiring.`,
+  needVC:"Rezervuarda yog' bor. Uning qovushqoqligini kiriting (laboratoriyadan) — hisob shunga qarab to'g'rilanadi.",
+  over:(n,a,b,z)=>`⚠ <b>${n}</b> toshib ketadi! ${a} t sig'maydi. Maks. zamer ${z} sm gacha faqat <b>${b} t</b> sig'adi — hisob ${b} t ga qilindi.`,
+  ovr:(n,z,a,b,m)=>`⚠ <b>Bu zamer bilan ${n} toshib ketadi!</b><br>Zamer ${z} sm, maksimal ${m} sm — faqat <b>${b} t</b> sig'adi, siz <b>${a} t</b> kiritdingiz.<br>Iltimos, zamerni qayta ko'rib chiqing yoki tonnani kamaytiring.`,
+  ovFit:b=>`Tonnani ${b} t ga kamaytirish`,
+  overEx:l=>`Ortib qoladi (o'z rezervuarida qoldiring): ${l}`,full:(n,m)=>`⚠ <b>${n}</b> to'la (maks. ${m} sm) — yana haydalsa <b>toshib ketadi</b>. Zamerni tekshiring yoki boshqa rezervuarni tanlang.`,
+  noMix:(tv,v,a,b)=>`Rezervuardagi yog' bilan ${tv} cSt chiqmaydi: qo'shiladigan yog' ${v} cSt bo'lishi kerak, fraksiyalar esa ${a}–${b} cSt.`,
+  addV:"Qo'shiladigan yog' qovushqoqligi",totIn:n=>`${n} da jami bo'ladi`,
+  pinChange:"🔒 Arxiv kodi",pinSet:"Yangi kod o'ylab toping (4–8 raqam) va yozib qo'ying",pinAsk:"Arxiv kodini kiriting",pinBad:"Kod noto'g'ri.",pinFmt:"Kod 4 tadan 8 tagacha raqam bo'lishi kerak.",pinNew:"Yangi kod (4–8 raqam)",pinOk:"Kod saqlandi.",
+  arcEdit:"Arxiv yozuvini tahrirlash",delRec:"O'chirish",delRecQ:"Bu yozuv butunlay o'chirilsinmi?",fDate:"Sana va vaqt",fNote:"Izoh",zBefore:"Zamer oldin",zAfter:"Zamer keyin",edited:"tahrirlangan",aErr:"Sana va miqdorni to'g'ri kiriting.",
+  repH:"Oylik va yillik hisobot",rMonth:"Oy bo'yicha",rYear:"Yil bo'yicha",rPeriod:"Davr",repP:"Hisobot arxivdagi yozuvlardan avtomatik tuziladi.",
+  rCopy:"Hisobotni nusxalash",rNone:"Bu davrda arxivda yozuv yo'q.",rCopied:"Hisobot nusxalandi — Telegram yoki Word'ga joylashtiring.",
+  kTot:"Tayyor mahsulot",kN:"Partiyalar soni",kFr:"Ketgan fraksiyalar",byGr:"Markalar bo'yicha",byFr:"Qaysi fraksiyadan qancha ketdi",byM:"Oylar bo'yicha",thBatch:"Partiya",thTons:"Tonna",thFr:"Fraksiya",thMonth:"Oy",repT:p=>`HISOBOT · ${p}`,
+  u_cm:'sm',u_t:'t',months:['yanvar','fevral','mart','aprel','may','iyun','iyul','avgust','sentabr','oktabr','noyabr','dekabr'],date:(d,m,y)=>`${d}-${m} ${y}`},
+ ru:{title:"Приготовление масла",unit:"Установка 57/1.2 · цех №3",vPrep:"Приготовление",vCalc:"Калькуляторы",vSet:"Резервуары и марки",addTank:"+ ещё резервуар",csvBtn:"Выгрузить в Excel",bkBtn:"Сохранить резервную копию",rsBtn:"Восстановить из копии",
+  bkNever:"Резервная копия ещё не делалась. Нажмите «Сохранить резервную копию» и скопируйте файл на флешку.",bkOld:n=>`С последней копии прошло ${n} дн. Сделайте новую и скопируйте на флешку.`,
+  bkOk:f=>`Копия сохранена: ${f} (папка «Загрузки»). Скопируйте её на флешку.`,csvOk:f=>`Файл Excel сохранён: ${f} (папка «Загрузки»).`,
+  rsErr:"Это не файл резервной копии приложения.",rsQ:(a,t,g)=>`В копии: записей архива ${a}, резервуаров ${t}, марок ${g}.\nРезервуары и марки будут заменены, архив будет дополнен. Продолжить?`,
+  rsOk:(n,tot)=>`Восстановлено: добавлено новых записей ${n} (всего ${tot}).`,
+  xGen:"составлен:",h4:"Присадки",addAd:"+ добавить присадку",adName:"Присадка",adDose:"Доза",adKg:"Расход",u_kg:"кг",adH:"Присадки",adNew:"+ Добавить присадку",adHint:"Доза — % от массы готового продукта. Например: 300 т × 0,3 % = 900 кг. Стандартная доза подставляется автоматически.",adDef:"Стандартная доза, %",adTot:k=>`Всего присадок: <b>${k} кг</b>`,adNone:"Присадки не добавляются — при необходимости нажмите «+ добавить присадку».",byAd:"Расход присадок",thAd:"Присадка",shAd:"Присадки",adLine:(n,p,k)=>`${n}${p?` · ${p} %`:``}`,xTot:"Итого",xRecs:"Партии",xRep:"Отчёт",xArc:"Архив",xArcT:"Архив приготовления масла",
+  csvH:["Дата","Марка","Количество, т","Вязкость, cSt","Норма","Компонент 1","Компонент 1, т","Компонент 1: резервуар (замер, см)","Компонент 2","Компонент 2, т","Компонент 2: резервуар (замер, см)","Откачка в резервуар","Замер до, см","Замер после, см"],yes:"да",no:"нет",rmTank:"Убрать",tkH:"Резервуары",addSrc:"+ Добавить резервуар 57/1.2",addDst:"+ Добавить резервуар 4 цеха",
+  grH:"Марки",addGr:"+ Добавить марку",shareH:"Обмен с телефоном",shareP:"Отправить резервуары и марки в полную версию на телефоне или загрузить оттуда.",impBtn:"Загрузить с телефона",expBtn:"Отправить на телефон (копировать)",
+  expOk:"Скопировано. На телефоне: Резервуары → Поделиться → вставить текст и «Загрузить».",grpSrc:p=>`57/1.2 · ${p}`,grpNoPark:"57/1.2 · без парка",grpDst:"4 цех — приготовление и отгрузка",
+  edit:"Изменить",del:"Удалить",delQ:n=>`Удалить ${n}?`,tkNew:"Новый резервуар",tkEdit:n=>`Резервуар: ${n}`,grNew:"Новая марка",grEdit:n=>`Марка: ${n}`,
+  fName:"Название",fPark:"Парк",fProd:"Текущий продукт",fRole:"Принадлежность",roleSrc:"57/1.2 (фракции)",roleDst:"4 цех (приготовление)",fK:"Калибровка",tPerCm:"т / см",fMax:"Макс. замер",fDead:"Оставить (неоткачиваемый остаток)",
+  saveBtn:"Сохранить",capTxt:(c)=>`Вместимость: ${c} т`,tkErr:"Введите название и калибровку (т/см).",tkDup:"Резервуар с таким названием уже есть.",tbl:"калибровка по таблице (изменяется только в версии для телефона)",
+  tkDesc:(k,m,d)=>`${k} т/см`+(m>0?` · макс. ${m} см`:'')+` · оставить ${d} см`,gCA:"Компонент 1",gCB:"Компонент 2",gMin:"Норма: не менее",gMax:"Норма: не более",grErr:"Введите название и норму (минимум < максимум).",grDesc:(a,b,lo,hi)=>`${a} + ${b} · ${lo}–${hi} cSt`,print:"Печать",setBtn:"Загрузить резервуары и марки",
+  h1:"Что готовим?",grade:"Марка",amount:"Количество",targetV:"Нужная вязкость",h2:"Откуда откачка?",h3:"В какой резервуар откачка?",
+  tank:"Резервуар",level:"Замер",visc:"Вязкость",dens:"Плотность",levelNow:"Замер (до барботажа)",mixDens:"Плотность смеси",result:"Результат",save:"Сохранить в архив",
+  arc:"Архив",arcLast:"— последние 15",shiftBtn:"Отчёт смены (копировать)",c1H:"Вязкость смеси по составу",c1A:"Вязкость компонента 1",c1p:"Доля компонента 1",c1B:"Вязкость компонента 2",
+  c2H:"Состав для нужной вязкости",compA:"Компонент 1",compB:"Компонент 2",target:"Нужная",toPrep:"Перенести в приготовление",kH:"Корректировка готовой партии",kM:"Партия",kV:"Результат лаборатории",kC:"Добавляемый компонент",
+  foot:"Расчёт: метод Рефутаса (ASTM D7152) · данные хранятся на этом компьютере",imBtn:"Загрузить",close:"Закрыть",
+  dlgP:"В полной версии на телефоне нажмите <b>Резервуары → Поделиться → Копировать</b>, вставьте текст сюда и нажмите «Загрузить». Резервуары и марки изменяются в полной версии.",
+  choose:"— выберите —",norm:(a,b)=>`Норма: ${a}–${b} cSt`,needIn:"Введите количество и вязкость обоих компонентов.",
+  noRange:(v,a,b)=>`С этими компонентами ${v} cSt не получить: возможный диапазон ${a}–${b} cSt.`,enterDens:"введите плотность",badLevel:"неверный замер",
+  pump:"Откачка",short:(n,m,a)=>`${n}: нужно ${m} т, можно откачать ${a} т`,fit:m=>`Приготовить ${m} т из этих резервуаров`,noFit:(n,f)=>`Не поместится в ${n}: свободно ${f} т.`,
+  viscL:"Вязкость",inNorm:"✓ в норме",outNorm:"✗ вне нормы",canDo:"Приготовить можно.",saved:"Сохранено в архив.",
+  thDate:"Дата",thGrade:"Марка",thAmt:"Кол-во",thTo:"Откачка в",arcEmpty:"Архив пока пуст.",
+  shNone:"За последние 12 часов записей в архиве нет.",shH:d=>`ОТЧЁТ СМЕНЫ · ${d}`,shIn:" · в норме",shOut:" · вне нормы",shTo:"откачка в",shTot:(n,m)=>`Итого: ${n} партий, ${m} т`,shOk:"Отчёт скопирован — можно вставить в Telegram.",
+  imErr:"Неверный текст. Вставьте полностью результат «Копировать» из полной версии.",imOk:(t,g)=>`Загружено: резервуаров ${t}`+(g!=null?`, марок ${g}`:'')+'.',
+  pctErr:"Доля должна быть от 0 до 100 %.",mixV:"Вязкость смеси",tgtErr:(a,b)=>`Нужное значение должно быть в диапазоне ${a}–${b} cSt.`,
+  kNeed:"Введите партию, результат лаборатории, нужное значение и добавляемый компонент.",kSame:"Партия уже имеет нужную вязкость.",
+  kLight:v=>`Нужно снизить вязкость: компонент должен быть жиже ${v} cSt.`,kHeavy:v=>`Нужно повысить вязкость: компонент должен быть гуще ${v} cSt.`,
+  kAdd:"Нужно добавить",kNew:"Новая партия",kRes:"Результат (расчёт)",
+  vRep:"Отчёт",lZs:"Замер",lZe:"Останется",chip0:a=>`${a} см — из этого резервуара не берётся`,recH:n=>`Записи (${n})`,delAll:p=>`${p} — удалить все`,delAllQ:(p,n)=>`Удалить все записи за ${p} (${n} шт.)?\nОтменить нельзя. При необходимости сначала нажмите «Сохранить резервную копию».`,delAgain:"Для подтверждения нажмите «Удалить» ещё раз.",lZ0:"Замер",lZ1:"Будет",chipC:(a,b,tot)=>`✓ ${a} → <b>${b} см</b> (до барботажа) · всего ${tot} т`,barb:"до барботажа — при барботаже ещё добавится",chip:(a,b,m)=>`✓ ${a} → останется <b>${b} см</b> · откачать ${m} т`,zUpd:"Новые замеры записаны в поля.",dupTk:n=>`${n} выбран в обеих фракциях — один резервуар нельзя указывать дважды.`,lR:"Остаток (насос)",rest:"Остаток насоса",vNowC:"Вязкость масла в резервуаре",fVisc:"Вязкость (текущая)",
+  inf:(h,c,r)=>`В резервуаре: <b>${h} т</b> · можно откачать: <b>${c} т</b> (насос берёт до ${r} см)`,
+  infC:(h,f,mx)=>`Сейчас есть: <b>${h} т</b> · свободно: <b>${f} т</b>`+(mx?` (до макс. ${mx} см)`:''),
+  noMax:"макс. замер не задан — перелив не проверяется",defMx:" (стандарт)",
+  zOver:(n,z,m)=>`⚠ <b>${n}</b>: замер <b>${z} см</b> больше максимального <b>${m} см</b>! Резервуар перельётся или замер введён неверно. Проверьте замер.`,
+  needVC:"В резервуаре есть масло. Введите его вязкость (по лаборатории) — расчёт будет скорректирован.",
+  over:(n,a,b,z)=>`⚠ <b>${n}</b> переполнится! ${a} т не поместится. До макс. замера ${z} см помещается только <b>${b} т</b> — расчёт сделан на ${b} т.`,
+  ovr:(n,z,a,b,m)=>`⚠ <b>С этим замером ${n} переполнится!</b><br>Замер ${z} см, максимум ${m} см — поместится только <b>${b} т</b>, а введено <b>${a} т</b>.<br>Пожалуйста, перепроверьте замер или уменьшите количество (тонны).`,
+  ovFit:b=>`Уменьшить до ${b} т`,
+  overEx:l=>`Останется лишним (оставить в своём резервуаре): ${l}`,full:(n,m)=>`⚠ <b>${n}</b> полный (макс. ${m} см) — при откачке <b>перельётся</b>. Проверьте замер или выберите другой резервуар.`,
+  noMix:(tv,v,a,b)=>`С маслом в резервуаре ${tv} cSt не получить: добавляемое масло должно быть ${v} cSt, а фракции ${a}–${b} cSt.`,
+  addV:"Вязкость добавляемого масла",totIn:n=>`Всего будет в ${n}`,
+  pinChange:"🔒 Код архива",pinSet:"Придумайте новый код (4–8 цифр) и запишите его",pinAsk:"Введите код архива",pinBad:"Неверный код.",pinFmt:"Код должен быть от 4 до 8 цифр.",pinNew:"Новый код (4–8 цифр)",pinOk:"Код сохранён.",
+  arcEdit:"Изменить запись архива",delRec:"Удалить",delRecQ:"Удалить эту запись навсегда?",fDate:"Дата и время",fNote:"Примечание",zBefore:"Замер до",zAfter:"Замер после",edited:"изменено",aErr:"Введите правильно дату и количество.",
+  repH:"Месячный и годовой отчёт",rMonth:"За месяц",rYear:"За год",rPeriod:"Период",repP:"Отчёт составляется автоматически по записям архива.",
+  rCopy:"Копировать отчёт",rNone:"За этот период записей в архиве нет.",rCopied:"Отчёт скопирован — вставьте в Telegram или Word.",
+  kTot:"Готовая продукция",kN:"Партий",kFr:"Израсходовано фракций",byGr:"По маркам",byFr:"Сколько какой фракции ушло",byM:"По месяцам",thBatch:"Партий",thTons:"Тонн",thFr:"Фракция",thMonth:"Месяц",repT:p=>`ОТЧЁТ · ${p}`,
+  u_cm:'см',u_t:'т',months:['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],date:(d,m,y)=>`${d} ${m} ${y}`}};
+const tr=()=>TT[st.lang==='ru'?'ru':'uz'];
+const PNL=(v,ru)=>{if(v==null)return v;let s=String(v).trim(),m;if((m=s.match(/^(\d+)\s*-\s*fraksiya$/i))||(m=s.match(/^(\d+)\s*-\s*(?:я\s+)?фракция$/i)))return ru?m[1]+'-фракция':m[1]+'-fraksiya';if(/^(ost\.?\s*masla|ост\.?\s*масло)$/i.test(s))return ru?'Ост. масло':'Ost. masla';return s};
+const PN=v=>PNL(v,st.lang==='ru'),CAN=v=>String(PNL(v||'',false)).toLowerCase();
+function applyLang(){const t=tr();
+  document.documentElement.lang=st.lang==='ru'?'ru':'uz';document.title=t.title;
+  document.querySelectorAll('[data-t]').forEach(e=>{const v=t[e.dataset.t];if(typeof v==='string')e.textContent=v});
+  document.querySelectorAll('[data-th]').forEach(e=>{const v=t[e.dataset.th];if(typeof v==='string')e.innerHTML=v});
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===(st.lang==='ru'?'ru':'uz')))}
+
+/* ===================== SELEKTLAR ===================== */
+function fillTanks(id,list,cur){
+  const s=$(id);
+  s.innerHTML=`<option value="">${tr().choose}</option>`+list.sort(byName).map(x=>`<option value="${x.id}">${esc(x.name)}${x.product?' — '+esc(PN(x.product)):''}</option>`).join('');
+  s.value=list.some(x=>x.id===cur)?cur:'';
+}
+function fillAll(){
+  $('g').innerHTML=grades.map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('');
+  $('g').value=grades.some(g=>g.id===st.g)?st.g:(grades[0]?grades[0].id:'');
+  const src=tanks.filter(x=>x.role!=='dst'),dst=tanks.filter(x=>x.role==='dst');
+  fillTanks('tA',src.slice(),st.tA);fillTanks('tB',src.slice(),st.tB);fillTanks('tC',dst.slice(),st.tC);
+  FIELDS.forEach(i=>{if(st[i]!=null)$(i).value=st[i]});
+  if($('xA')){renderX('A');renderX('B')}
+}
+const tankOf=id=>tanks.find(x=>x.id===$(id).value)||null;
+// qo'shimcha manba rezervuarlar: st.xA / st.xB = [{tank,z}]
+function renderX(c){const t=tr(),list=st['x'+c]||[],src=tanks.filter(x=>x.role!=='dst').sort(byName);
+  $('x'+c).innerHTML=list.map((r,i)=>`<div class="trow xt">
+    <div class="inp"><select data-c="${c}" data-i="${i}" data-f="tank"><option value="">${t.choose}</option>${src.map(x=>`<option value="${x.id}"${x.id===r.tank?' selected':''}>${esc(x.name)}${x.product?' — '+esc(PN(x.product)):''}</option>`).join('')}</select></div>
+    <div class="tr3">
+      <div class="inp"><input data-c="${c}" data-i="${i}" data-f="z" inputmode="decimal" value="${esc(r.z||'')}"><span>${t.u_cm}</span></div>
+      <div class="inp out1" data-ew="${c}${i}"><span class="pre">→</span><input readonly tabindex="-1"><span>${t.u_cm}</span></div>
+      <div class="inp"><input data-c="${c}" data-i="${i}" data-f="v" inputmode="decimal" value="${esc(r.v||'')}"><span>cSt</span></div>
+    </div>
+    <button class="x" data-c="${c}" data-rm="${i}" title="${t.rmTank}">✕</button></div><div class="rz" data-rz="${c}${i}"></div>`).join('');
+  $('x'+c).querySelectorAll('[data-f]').forEach(e=>e.addEventListener(e.tagName==='SELECT'?'change':'input',()=>{
+    const L2=st['x'+e.dataset.c],row=L2[+e.dataset.i];row[e.dataset.f]=e.value;
+    if(e.dataset.f==='tank'){const T=tanks.find(x=>x.id===e.value);if(T){if(T.visc>0&&!row.v){row.v=fmt(T.visc,2)}row.r=row.r||''};setLS('visc_pc',st);renderX(e.dataset.c)}
+    setLS('visc_pc',st);calc()}));
+  $('x'+c).querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{st['x'+c].splice(+b.dataset.rm,1);setLS('visc_pc',st);renderX(c);calc()})}
+const nz=x=>{const v=String(x==null?'':x).trim().replace(',','.');return v===''?NaN:Number(v)};
+function rowsOf(c){const out=[{T:tankOf('t'+c),z:num('z'+c),r:num('r'+c),v:num('v'+c)}];
+  (st['x'+c]||[]).forEach(r=>{const T=tanks.find(x=>x.id===r.tank)||null;out.push({T,z:nz(r.z),r:num('r'+c),v:nz(r.v)})});
+  const seen=new Set();return out.filter(r=>r.T&&!isNaN(r.z)&&!seen.has(r.T.id)&&seen.add(r.T.id))}
+const gradeOf=()=>grades.find(x=>x.id===$('g').value)||null;
+
+/* ===================== PRISADKALAR ===================== */
+let adds=getLS('visc_adds',null);
+if(!Array.isArray(adds)){adds=['К-485','К-110','Агидол','Ферад'].map((n,i)=>({id:'ad'+Date.now()+'_'+i,name:n,dose:0}));setLS('visc_adds',adds)}
+// tanlangan markaga bog'liq qatorlar: st.adG[markaId] = [{a:id, p:'0,3', kg:''}]
+const adRows=()=>{st.adG=st.adG||{};const k=$('g').value||'_';if(!Array.isArray(st.adG[k]))st.adG[k]=[];return st.adG[k]};
+// har qator uchun sarf (kg): kg yozilgan bo'lsa shu, aks holda M t × doza %
+function adCalc(M){const out=[];adRows().forEach(r=>{const A=adds.find(x=>x.id===r.a);if(!A)return;const kg=nz(r.kg),pp=nz(r.p);
+    let k=NaN,pr=NaN;if(kg>0){k=kg;pr=M>0?kg/(M*10):NaN}else if(pp>0){pr=pp;k=M>0?M*pp*10:NaN}
+    out.push({name:A.name,p:isFinite(pr)?Math.round(pr*1000)/1000:null,kg:isFinite(k)?Math.round(k*10)/10:null})});return out}
+function renderAd(){const t=tr(),L=adRows(),list=adds.slice().sort(byName);
+  $('adList').innerHTML=L.map((r,i)=>`<div class="adrow">
+    <div class="inp"><select data-ai="${i}" data-af="a"><option value="">${t.choose}</option>${list.map(x=>`<option value="${x.id}"${x.id===r.a?' selected':''}>${esc(x.name)}</option>`).join('')}</select></div>
+    <div class="inp"><input data-ai="${i}" data-af="p" inputmode="decimal" value="${esc(r.p||'')}"><span>%</span></div>
+    <div class="inp"><input data-ai="${i}" data-af="kg" inputmode="decimal" value="${esc(r.kg||'')}"><span>${t.u_kg}</span></div>
+    <button class="x" data-arm="${i}" title="${t.del}">✕</button></div>`).join('');
+  $('adList').querySelectorAll('[data-af]').forEach(e=>e.addEventListener(e.tagName==='SELECT'?'change':'input',()=>{const row=adRows()[+e.dataset.ai];row[e.dataset.af]=e.value;
+    if(e.dataset.af==='a'){const A=adds.find(x=>x.id===e.value);if(A&&A.dose>0&&!row.p&&!row.kg)row.p=fmt(A.dose,2).replace(/,?0+$/,'')}
+    if(e.dataset.af==='p'&&e.value)row.kg='';if(e.dataset.af==='kg'&&e.value)row.p='';
+    setLS('visc_pc',st);if(e.tagName==='SELECT'||e.dataset.af!=='a')adShow();if(e.tagName==='SELECT')renderAd();calc()}));
+  $('adList').querySelectorAll('[data-arm]').forEach(b=>b.onclick=()=>{adRows().splice(+b.dataset.arm,1);setLS('visc_pc',st);renderAd();calc()});
+  adShow()}
+// boshqa maydonda hisoblangan qiymatni kulrang (placeholder) qilib ko'rsatadi
+function adShow(){const t=tr(),M=num('M'),L=adRows(),res=adCalc(M);let tot=0,i=0;
+  L.forEach((r,j)=>{const A=adds.find(x=>x.id===r.a);const pe=$('adList').querySelector(`[data-ai="${j}"][data-af="p"]`),ke=$('adList').querySelector(`[data-ai="${j}"][data-af="kg"]`);
+    if(!A){if(pe)pe.placeholder='';if(ke)ke.placeholder='';return}const q=res[i++];
+    if(pe)pe.placeholder=q&&q.p!=null?fmt(q.p,3).replace(/,?0+$/,''):'';if(ke)ke.placeholder=q&&q.kg!=null?fmt(q.kg,1):'';if(q&&q.kg)tot+=q.kg});
+  $('adTot').innerHTML=L.length?(tot>0?t.adTot(fmt(tot,1)):''):t.adNone}
+function renderAdSet(){const t=tr();
+  $('adSet').innerHTML=`<div class="adset" style="color:var(--muted);font-size:.85rem"><span>${t.adName}</span><span>${t.adDef}</span><span></span></div>`+adds.map((a,i)=>`<div class="adset">
+    <div class="inp"><input data-si="${i}" data-sf="name" value="${esc(a.name)}"></div>
+    <div class="inp"><input data-si="${i}" data-sf="dose" inputmode="decimal" value="${a.dose>0?fmt(a.dose,3).replace(/,?0+$/,''):''}" placeholder="—"><span>%</span></div>
+    <button class="mini del" data-sdel="${i}">${t.del}</button></div>`).join('');
+  $('adSet').querySelectorAll('[data-sf]').forEach(e=>e.addEventListener('change',()=>{const a=adds[+e.dataset.si];
+    if(e.dataset.sf==='name'){const v=e.value.trim();if(v)a.name=v;else e.value=a.name}else{const v=nz(e.value);a.dose=v>0?v:0}
+    setLS('visc_adds',adds);renderAd()}));
+  $('adSet').querySelectorAll('[data-sdel]').forEach(b=>b.onclick=()=>{const a=adds[+b.dataset.sdel];askYes(t.delQ(a.name),()=>{adds=adds.filter(x=>x!==a);setLS('visc_adds',adds);renderAdSet();renderAd();calc()})})}
+const adTxt=l=>(l||[]).filter(x=>x.kg>0).map(x=>`${x.name} ${fmt(x.kg,1)} ${tr().u_kg}`).join(', ');
+
+/* ===================== HISOB ===================== */
+function infoSrc(c){const T=tankOf('t'+c);$('r'+c).placeholder=String(T?(T.dead||0):30)}
+function calc(){
+  if($('adList'))adShow();
+  SELS.forEach(i=>st[i]=$(i).value);FIELDS.forEach(i=>st[i]=$(i).value);setLS('visc_pc',st);
+  const t=tr(),g=gradeOf(),cA=g?(g.compA||t.compA):t.compA,cB=g?(g.compB||t.compB):t.compB;
+  $('nA').textContent=PN(cA);$('nB').textContent=PN(cB);$('rNA').textContent=PN(cA);$('rNB').textContent=PN(cB);
+  $('norm').textContent=g?t.norm(fmt(g.vMin,0),fmt(g.vMax,0)):'';
+  $('tv').placeholder=g?fmt((g.vMin+g.vMax)/2,1):'';
+  const TA=tankOf('tA'),TB=tankOf('tB'),TC=tankOf('tC');
+  $('dAw').hidden=!(TA&&!isT(TA));$('dBw').hidden=!(TB&&!isT(TB));$('dCw').hidden=!(TC&&!isT(TC));
+  infoSrc('A');infoSrc('B');
+  const reset=()=>{$('rTop').innerHTML='';$('z1C').value='';document.querySelectorAll('.out1 input').forEach(e=>e.value='');document.querySelectorAll('.out1').forEach(e=>e.classList.remove('done','zero'));document.querySelectorAll('.rz').forEach(e=>e.innerHTML='');['rMA','rMB'].forEach(i=>$(i).textContent='—');['rPA','rPB','rZA','rZB'].forEach(i=>$(i).textContent='');$('rLines').innerHTML='';$('saveBtn').disabled=true;last=null};
+  // --- qabul qiluvchi rezervuar: hozir qancha bor, qancha sig'adi
+  // --- boshlang'ich zamer maksimaldan katta bo'lsa: hisoblamaymiz, ogohlantiramiz
+  document.querySelectorAll('.inp.bad').forEach(e=>e.classList.remove('bad'));
+  const zBad=[],chkZ=(T,z,el)=>{if(!T||isNaN(z))return;const mx=topH(T);
+    if(z<0||(isFinite(mx)&&z>mx+1e-9)){zBad.push(t.zOver(esc(T.name),fmt(z,0),isFinite(mx)?fmt(mx,0):'—'));if(el&&el.parentElement)el.parentElement.classList.add('bad')}};
+  chkZ(TA,num('zA'),$('zA'));chkZ(TB,num('zB'),$('zB'));chkZ(TC,num('zC'),$('zC'));
+  ['A','B'].forEach(c=>(st['x'+c]||[]).forEach((r,i)=>chkZ(tanks.find(x=>x.id===r.tank),nz(r.z),$('x'+c).querySelector(`[data-f="z"][data-i="${i}"]`))));
+  if(zBad.length){reset();$('iC').innerHTML='';$('rMsg').innerHTML=`<div class="warn danger big2">${zBad.join('<br>')}</div>`;return}
+  const zC=num('zC'),vC=num('vC');let Mc=0,free=Infinity,dC=1,V0c=NaN;$('iC').innerHTML='';
+  if(TC&&!isNaN(zC)){dC=isT(TC)?1:num('dC');
+    if(dC>0){V0c=vol(TC,zC);
+      if(!isNaN(V0c)){Mc=V0c*dC;const cap=capV(TC);free=isFinite(cap)?Math.max(0,(cap-V0c)*dC):Infinity;
+        $('iC').innerHTML=t.infC(fmt(Mc,1),isFinite(free)?fmt(free,1):'—',TC.type==='coef'?fmt(mxH(TC),0):'')+(isFinite(free)?'':' · '+t.noMax)}}}
+  const M0=num('M'),vA=num('vA'),vB=num('vB');let tv=num('tv');if(isNaN(tv)&&g)tv=(g.vMin+g.vMax)/2;
+  if(!(M0>0)||!(vA>0)||!(vB>0)||!(tv>0)){reset();$('rMsg').innerHTML=`<div class="empty">${t.needIn}</div>`;return}
+  const msgs=[];let ok=true,M=M0,over=false,top='';
+  if(isFinite(free)&&M0>free+1e-9){
+    if(free<0.05){reset();$('rMsg').innerHTML=`<div class="warn danger big2">${t.full(esc(TC.name),fmt(mxH(TC),0))}</div>`;return}
+    M=Math.floor(free*10)/10;over=true}
+  const ovw=over?`<div class="warn danger big2">${t.ovr(esc(TC.name),fmt(zC,0),fmt(M0,1),fmt(M,1),TC.type==='coef'?fmt(mxH(TC),0):'—')}<div class="row" style="margin-top:10px"><button class="btn" id="ovFitBtn">${t.ovFit(fmt(M,1))}</button></div></div>`:'';
+  if(over)$('zC').parentElement.classList.add('bad');
+  if(over)setTimeout(()=>{if($('ovFitBtn'))$('ovFitBtn').onclick=()=>{$('M').value=fmt(M,1);calc()}},0);
+  const has=Mc>0.05;
+  if(has&&!(vC>0)){reset();$('rMsg').innerHTML=ovw+`<div class="msg">${t.needVC}</div>`;return}
+  const needV=m=>has?Linv(((Mc+m)*L(tv)-Mc*L(vC))/m):tv;
+  const lo=Math.min(vA,vB),hi=Math.max(vA,vB),tvN=needV(M);
+  if(!isFinite(tvN)||Math.abs(vA-vB)<1e-9||tvN<lo-1e-9||tvN>hi+1e-9){reset();
+    $('rMsg').innerHTML=ovw+`<div class="msg">${has&&isFinite(tvN)?t.noMix(fmt(tv,1),fmt(tvN,1),fmt(lo,1),fmt(hi,1)):t.noRange(fmt(tv,1),fmt(lo,1),fmt(hi,1))}</div>`;return}
+  // har bir rezervuardan qancha olinadi (birinchisi qoldiqqacha, keyin keyingisi)
+  const takes=(c,m,dId,v0)=>{const rows=rowsOf(c);let rem=m;const out=[];
+    for(const R of rows){const d=isT(R.T)?1:num(dId),V0=vol(R.T,R.z);if(!(d>0)||isNaN(V0))return null;
+      const dd=isNaN(R.r)?(R.T.dead||0):R.r,a=Math.max(0,(V0-(vol(R.T,Math.min(R.z,dd))||0))*d),tk=Math.min(rem,a);rem-=tk;
+      out.push({...R,d,V0,a,tk,vv:R.v>0?R.v:v0})}return out};
+  const blend=(l,v0)=>{if(!l)return v0;const w=l.reduce((s,x)=>s+x.tk,0);return w>1e-9?Linv(l.reduce((s,x)=>s+x.tk*L(x.vv),0)/w):v0};
+  let vAe=vA,vBe=vB,pA=0;
+  for(let it=0;it<8;it++){if(Math.abs(vAe-vBe)<1e-9||tvN<Math.min(vAe,vBe)-1e-9||tvN>Math.max(vAe,vBe)+1e-9)break;
+    pA=(L(tvN)-L(vBe))/(L(vAe)-L(vBe));const nA=blend(takes('A',M*pA,'dA',vA),vA),nB=blend(takes('B',M*(1-pA),'dB',vB),vB);
+    if(Math.abs(nA-vAe)<1e-6&&Math.abs(nB-vBe)<1e-6)break;vAe=nA;vBe=nB}
+  if(Math.abs(vAe-vBe)<1e-9||tvN<Math.min(vAe,vBe)-1e-9||tvN>Math.max(vAe,vBe)+1e-9){reset();$('rMsg').innerHTML=ovw+`<div class="msg">${t.noRange(fmt(tv,1),fmt(Math.min(vAe,vBe),1),fmt(Math.max(vAe,vBe),1))}</div>`;return}
+  const pOf=v=>(L(v)-L(vBe))/(L(vAe)-L(vBe));pA=pOf(tvN);const mA=M*pA,mB=M-mA;
+  if(over){let exA=(M0-M)*pA,exB=(M0-M)*(1-pA);const t0=needV(M0);
+    if(isFinite(t0)&&t0>=lo-1e-9&&t0<=hi+1e-9){const p0=pOf(t0);exA=Math.max(0,M0*p0-mA);exB=Math.max(0,M0*(1-p0)-mB)}
+    top=ovw+(`<div class="warn big2">${t.overEx(`${esc(PN(cA))} <b>${fmt(exA,1)} ${t.u_t}</b>, ${esc(PN(cB))} <b>${fmt(exB,1)} ${t.u_t}</b>`)}</div>`)}
+  $('rTop').innerHTML=top;
+  $('rMA').innerHTML=`${fmt(mA,1)}<small> ${t.u_t}</small>`;$('rMB').innerHTML=`${fmt(mB,1)}<small> ${t.u_t}</small>`;
+  $('rPA').textContent=`${fmt(pA*100,1)} %`+(Math.abs(vAe-vA)>0.005?` · ${fmt(vAe,2)} cSt`:'');$('rPB').textContent=`${fmt(100-pA*100,1)} %`+(Math.abs(vBe-vB)>0.005?` · ${fmt(vBe,2)} cSt`:'');
+  $('pbA').style.width=(pA*100)+'%';$('pbB').style.width=(100-pA*100)+'%';
+  // manba: birinchi rezervuar qoldiqqacha bo'shatiladi, yetmaganini keyingisidan oladi
+  const src=(c,m,dId)=>{
+    const rows=rowsOf(c);if(!rows.length)return{txt:'',parts:[],avail:NaN};
+    let rem=m,avail=0;const txt=[],parts=[];
+    for(const {T,z,r:rr} of rows){
+      const d=isT(T)?1:num(dId);
+      if(!isT(T)&&!(d>0))return{txt:t.enterDens,parts:[],avail:NaN};
+      const V0=vol(T,z);if(isNaN(V0))return{txt:`${esc(T.name)}: ${t.badLevel}`,parts:[],avail:NaN};
+      const dd=isNaN(rr)?(T.dead||0):rr;
+      const Vd=vol(T,Math.min(z,dd))||0,a=Math.max(0,(V0-Vd)*d);avail+=a;
+      const take=Math.min(rem,a);rem-=take;
+      const z1=hgt(T,V0-take/d);
+      if(!(take<=1e-9&&parts.length))txt.push(`${esc(T.name)}: <b>${fmt(z,0)} → ${isNaN(z1)?'—':fmt(z1,0)}</b> ${t.u_cm}`+(rows.length>1?` (${fmt(take,1)} ${t.u_t})`:''));
+      parts.push({name:T.name,z0:z,z1:isNaN(z1)?null:z1,m:take});
+    }
+    return{txt:`${t.pump} · `+txt.join('<br>'),parts,avail};
+  };
+  const sA=src('A',mA,'dA'),sB=src('B',mB,'dB');
+  [['A',sA],['B',sB]].forEach(([c,S])=>{const by=new Map((S.parts||[]).map(x=>[x.name,x]));
+    const chip=(T,el,ew)=>{const q=T&&by.get(T.name),has=q&&q.z1!=null,zero=has&&q.m<0.05;
+      if(el){el.className='rz'+(zero?' zero':'');el.innerHTML=has?(zero?t.chip0(fmt(q.z0,0)):t.chip(fmt(q.z0,0),fmt(q.z1,0),fmt(q.m,1))):''}
+      if(ew){ew.className='inp out1'+(has?(zero?' zero':' done'):'');ew.querySelector('input').value=has?fmt(q.z1,0):''}};
+    chip(tankOf('t'+c),$('rz'+c),$('eW'+c));(st['x'+c]||[]).forEach((r,i)=>chip(tanks.find(x=>x.id===r.tank),$('x'+c).querySelector(`[data-rz="${c}${i}"]`),$('x'+c).querySelector(`[data-ew="${c}${i}"]`)))});
+  {const ia=new Set(rowsOf('A').map(r=>r.T.id)),dup=rowsOf('B').filter(r=>ia.has(r.T.id)).map(r=>r.T.name);
+    if(dup.length){ok=false;msgs.push(`<div class="msg">${t.dupTk(esc(dup.join(', ')))}</div>`)}}
+  $('rZA').innerHTML=sA.txt;$('rZB').innerHTML=sB.txt;
+  let lines='';const short=[];
+  if(!isNaN(sA.avail)&&mA>sA.avail+1e-6)short.push([PN(cA),sA.avail,mA]);
+  if(!isNaN(sB.avail)&&mB>sB.avail+1e-6)short.push([PN(cB),sB.avail,mB]);
+  if(short.length){ok=false;
+    const lim=[];if(!isNaN(sA.avail)&&pA>1e-9)lim.push(sA.avail/pA);if(!isNaN(sB.avail)&&1-pA>1e-9)lim.push(sB.avail/(1-pA));
+    const Mmax=Math.floor(Math.min(...lim)*10)/10;
+    msgs.push(`<div class="msg">${short.map(([n,a,m])=>t.short(esc(n),fmt(m,1),fmt(Math.max(0,a),1))).join('<br>')}
+      ${Mmax>0?`<div class="row" style="margin-top:10px"><button class="btn" id="fitBtn">${t.fit(fmt(Mmax,1))}</button></div>`:''}</div>`);
+    setTimeout(()=>{if($('fitBtn'))$('fitBtn').onclick=()=>{$('M').value=fmt(Mmax,1);calc()}},0);
+  }
+  let rc={tank:'',z0:null,z1:null,V0:null,V1:null};
+  if(TC&&!isNaN(zC)){
+    if(!(dC>0))lines+=`<div class="line"><span>${esc(TC.name)}</span><b>${t.enterDens}</b></div>`;
+    else if(isNaN(V0c))lines+=`<div class="line"><span>${esc(TC.name)}</span><b>${t.badLevel}</b></div>`;
+    else{const V1=V0c+M/dC,z1=hgt(TC,V1);
+      lines+=`<div class="line"><span>${t.pump} · ${esc(TC.name)}<br><small style="color:var(--muted)">${t.barb}</small></span><b>${fmt(zC,0)} → ${isNaN(z1)?'—':fmt(z1,0)} ${t.u_cm}</b></div>`;
+      if(has)lines+=`<div class="line"><span>${t.addV}</span><b>${fmt(tvN,2)} cSt</b></div><div class="line"><span>${t.totIn(esc(TC.name))}</span><b>${fmt(Mc+M,1)} ${t.u_t}</b></div>`;
+      rc={tank:TC.name,z0:zC,z1:isNaN(z1)?null:z1,V0:V0c,V1};
+      $('z1C').value=isNaN(z1)?'':fmt(z1,0);$('rzC').innerHTML=isNaN(z1)?'':t.chipC(fmt(zC,0),fmt(z1,0),fmt(Mc+M,1))}
+  }
+  const inN=g?(tv>=g.vMin-1e-9&&tv<=g.vMax+1e-9):null;
+  lines+=`<div class="line"><span>${t.viscL}</span><b>${fmt(tv,2)} cSt ${inN==null?'':(inN?`<span class="okb">${t.inNorm}</span>`:`<span class="badb">${t.outNorm}</span>`)}</b></div>`;
+  const adL=adCalc(M).filter(x=>x.kg>0);adL.forEach(x=>{lines+=`<div class="line"><span>${esc(x.name)}${x.p!=null?` · ${fmt(x.p,3).replace(/,?0+$/,'')} %`:''}</span><b>${fmt(x.kg,1)} ${t.u_kg}</b></div>`});
+  $('rLines').innerHTML=lines;
+  if(ok&&!over)msgs.push(`<div class="okmsg">${t.canDo}</div>`);
+  $('rMsg').innerHTML=msgs.join('');
+  last=ok?{adds:adL,g,cA,cB,M,tv,pA:pA*100,mA,mB,vA:vAe,vB:vBe,pa:sA.parts,pb:sB.parts,rc,inN,Mc:has?Mc:0,vC:has?vC:null,tvN}:null;
+  $('saveBtn').disabled=!last;
+}
+// marka tanlanganda kerakli fraksiyali rezervuarni o'zi topadi
+function autoPick(){const g=gradeOf();if(!g)return;
+  [['A',g.compA],['B',g.compB]].forEach(([c,comp])=>{if(!comp)return;const cur=tankOf('t'+c);
+    if(cur&&CAN(cur.product)===CAN(comp))return;
+    const cand=tanks.filter(x=>x.role!=='dst'&&CAN(x.product)===CAN(comp)).sort(byName)[0];
+    if(cand){$('t'+c).value=cand.id;if(cand.visc>0)$('v'+c).value=fmt(cand.visc,2)}})}
+function tankVisc(sel){const map={tA:'vA',tB:'vB',tC:'vC'},T=tankOf(sel);if(map[sel]&&T&&T.visc>0)$(map[sel]).value=fmt(T.visc,2)}
+
+/* ===================== ARXIV (to'liq versiya formatida) ===================== */
+function dateStr(ts){const d=new Date(ts),p=n=>String(n).padStart(2,'0');return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`}
+const parts=c=>c&&Array.isArray(c.tanks)?c.tanks:[];
+const pTxt=c=>parts(c).map(p=>`${p.name} ${p.z0==null?'—':fmt(p.z0,0)}→${p.z1==null?'—':fmt(p.z1,0)}`).join(', ');
+function saveArc(){
+  const p=last;if(!p)return;
+  const rec={id:'a'+Date.now(),ts:Date.now(),grade:p.g?p.g.name:'',cA:p.cA,cB:p.cB,M:p.M,tv:p.tv,pA:p.pA,mA:p.mA,mB:p.mB,
+    a:{tanks:p.pa||[],an:{v:p.vA}},b:{tanks:p.pb||[],an:{v:p.vB}},c:p.rc,q:{},qOk:p.inN,Mc:p.Mc,vC:p.vC,adds:p.adds||[]};
+  const TC=tanks.find(x=>x.role==='dst'&&p.rc&&x.name===p.rc.tank);if(TC){TC.visc=Math.round(p.tv*100)/100;if(p.g)TC.product=p.g.name;setLS('visc_tanks',tanks);fillAll()}
+  arch=getLS('visc_arch',[]);if(!Array.isArray(arch))arch=[];
+  arch.unshift(rec);setLS('visc_arch',arch);renderArc();
+  setLS('visc_pc',st);renderX('A');renderX('B');calc();
+  $('rMsg').innerHTML=`<div class="okmsg">${tr().saved}</div>`;$('saveBtn').disabled=true;
+}
+function renderArc(){
+  const t=tr(),l=arch.slice(0,15);if($('bkWarn'))bkWarn();
+  $('arc').innerHTML=l.length?`<table><thead><tr><th>${t.thDate}</th><th>${t.thGrade}</th><th class="num">${t.thAmt}</th><th class="num">cSt</th><th>${t.compA}</th><th>${t.compB}</th><th>${t.thTo}</th><th></th></tr></thead><tbody>${
+    l.map(r=>`<tr><td data-l="${t.thDate}">${dateStr(r.ts)}${r.edited?` <span style="color:var(--muted);font-size:.8rem">(${t.edited})</span>`:''}</td><td data-l="${t.thGrade}"><b>${esc(r.grade||'—')}</b>${adTxt(r.adds)?`<br><span style="color:var(--muted);font-size:.85rem">+ ${esc(adTxt(r.adds))}</span>`:''}</td><td class="num" data-l="${t.thAmt}">${fmt(r.M||0,1)} ${t.u_t}</td>
+      <td class="num" data-l="${t.viscL}">${fmt(r.tv||0,2)} ${r.qOk==null?'':(r.qOk?'<span class="okb">✓</span>':'<span class="badb">✗</span>')}</td>
+      <td data-l="${esc(PN(r.cA)||t.compA)}">${esc(PN(r.cA)||'')}: ${fmt(r.mA||0,1)} ${t.u_t}<br><span style="color:var(--muted)">${esc(pTxt(r.a))}</span></td>
+      <td data-l="${esc(PN(r.cB)||t.compB)}">${esc(PN(r.cB)||'')}: ${fmt(r.mB||0,1)} ${t.u_t}<br><span style="color:var(--muted)">${esc(pTxt(r.b))}</span></td>
+      <td data-l="${t.thTo}">${esc(r.c&&r.c.tank||'—')}${r.c&&r.c.tank?`<br><span style="color:var(--muted)">${r.c.z0==null?'—':fmt(r.c.z0,0)}→${r.c.z1==null?'—':fmt(r.c.z1,0)} ${t.u_cm}</span>`:''}${r.note?`<br><i>${esc(r.note)}</i>`:''}</td>
+      <td><button class="arcEd" data-ae="${r.id}" title="${t.edit}">✎ ${t.edit}</button></td></tr>`).join('')}</tbody></table>`
+    :`<div class="empty">${t.arcEmpty}</div>`;
+  $('arc').querySelectorAll('[data-ae]').forEach(b=>b.onclick=()=>askPin(()=>openArc(b.dataset.ae)));
+}
+/* ---- arxiv kodi (PIN) va tahrirlash ---- */
+const hs=x=>{let h=5381;for(const ch of 'yog#'+x)h=((h*33)^ch.charCodeAt(0))>>>0;return h.toString(36)};
+let pinUntil=0,edArc=null;
+// ilova ichidagi oyna (brauzer prompt() ishlamaydigan joylarda ham ishlaydi)
+function pinDlg(title,cb){$('pinH').textContent=title;$('pinIn').value='';$('pinMsg').innerHTML='';
+  $('pinOk').onclick=()=>{const v=$('pinIn').value.trim();const err=cb(v);if(err){$('pinMsg').innerHTML=`<div class="msg">${err}</div>`;$('pinIn').value='';$('pinIn').focus()}else $('dPin').close()};
+  $('pinIn').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('pinOk').click()}};
+  $('pinNo').onclick=()=>$('dPin').close();$('dPin').showModal();setTimeout(()=>$('pinIn').focus(),50)}
+const okFmt=v=>/^\d{4,8}$/.test(v);
+function askPin(cb){const t=tr(),h=getLS('visc_pin',null);
+  if(pinUntil>Date.now()&&h){cb();return}
+  if(!h){pinDlg(t.pinSet,v=>{if(!okFmt(v))return t.pinFmt;setLS('visc_pin',hs(v));pinUntil=Date.now()+5*60000;setTimeout(()=>{cb();flash(t.pinOk)},0)});return}
+  pinDlg(t.pinAsk,v=>{if(hs(v)!==h)return t.pinBad;pinUntil=Date.now()+5*60000;setTimeout(cb,0)})}
+function changePin(){const t=tr(),newPin=()=>pinDlg(t.pinNew,v=>{if(!okFmt(v))return t.pinFmt;setLS('visc_pin',hs(v));pinUntil=Date.now()+5*60000;setTimeout(()=>flash(t.pinOk),0)});
+  if(getLS('visc_pin',null)){pinUntil=0;askPin(()=>setTimeout(newPin,0))}else askPin(()=>{})}
+function askYes(m,cb){$('yesTxt').textContent=m;$('yesOk').onclick=()=>{$('dYes').close();cb()};$('yesNo').onclick=()=>$('dYes').close();$('dYes').showModal()}
+function flash(m){$('bkMsg').innerHTML=`<div class="okmsg">${m}</div>`;$('bkMsg').scrollIntoView({block:'nearest'})}
+const dtLocal=ts=>{const d=new Date(ts),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`};
+const nv=x=>x==null||isNaN(x)?'':fmt(x,x%1?2:0);
+function openArc(id){const r=arch.find(x=>x.id===id);if(!r)return;edArc=r;
+  $('aDt').value=dtLocal(r.ts);$('aGr').value=r.grade||'';$('aM').value=nv(r.M);$('aTv').value=nv(r.tv);
+  $('aCA').value=PN(r.cA)||'';$('aMA').value=nv(r.mA);$('aCB').value=PN(r.cB)||'';$('aMB').value=nv(r.mB);
+  $('aTk').value=r.c&&r.c.tank||'';$('aZ0').value=r.c?nv(r.c.z0):'';$('aZ1').value=r.c?nv(r.c.z1):'';$('aNote').value=r.note||'';
+  $('aMsg').innerHTML='';$('aDel').dataset.sure='';$('dArc').showModal()}
+function saveArcEd(){const r=edArc;if(!r)return;const ts=new Date($('aDt').value).getTime(),M=num('aM');
+  if(!(ts>0)||!(M>0)){$('aMsg').innerHTML=`<div class="msg">${tr().aErr}</div>`;return}
+  const g=grades.find(x=>x.name===$('aGr').value.trim()),tv=num('aTv');
+  Object.assign(r,{ts,grade:$('aGr').value.trim(),M,tv:isNaN(tv)?r.tv:tv,cA:$('aCA').value.trim(),mA:num('aMA'),cB:$('aCB').value.trim(),mB:num('aMB'),note:$('aNote').value.trim(),edited:Date.now()});
+  if(g&&!isNaN(tv))r.qOk=tv>=g.vMin-1e-9&&tv<=g.vMax+1e-9;
+  r.c=Object.assign(r.c||{},{tank:$('aTk').value.trim(),z0:isNaN(num('aZ0'))?null:num('aZ0'),z1:isNaN(num('aZ1'))?null:num('aZ1')});
+  arch.sort((a,b)=>b.ts-a.ts);setLS('visc_arch',arch);$('dArc').close();renderArc();if(st.view==='rep')renderRep()}
+function delArc(){const r=edArc;if(!r)return;if($('aDel').dataset.sure!=='1'){$('aDel').dataset.sure='1';$('aMsg').innerHTML=`<div class="msg">${tr().delRecQ} ${tr().delAgain}</div>`;return}$('aDel').dataset.sure='';arch=arch.filter(x=>x.id!==r.id);setLS('visc_arch',arch);$('dArc').close();renderArc();if(st.view==='rep')renderRep()}
+
+/* ===================== EXCEL (.xlsx) — internetsiz, kutubxonasiz ===================== */
+const XL=(()=>{
+  const enc=new TextEncoder();
+  const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+  const crc32=b=>{let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0};
+  // oddiy ZIP (siqmasdan) — Excel buni bemalol ochadi
+  function zip(files){const parts=[],cen=[];let off=0;
+    const d=new Date(),dt=((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate(),tm=(d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1);
+    files.forEach(([name,txt])=>{const nb=enc.encode(name),data=enc.encode(txt),crc=crc32(data);
+      const h=new DataView(new ArrayBuffer(30));
+      h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(10,tm,true);h.setUint16(12,dt,true);
+      h.setUint32(14,crc,true);h.setUint32(18,data.length,true);h.setUint32(22,data.length,true);h.setUint16(26,nb.length,true);h.setUint16(28,0,true);
+      parts.push(new Uint8Array(h.buffer),nb,data);
+      const c=new DataView(new ArrayBuffer(46));
+      c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(12,tm,true);c.setUint16(14,dt,true);
+      c.setUint32(16,crc,true);c.setUint32(20,data.length,true);c.setUint32(24,data.length,true);c.setUint16(28,nb.length,true);c.setUint32(42,off,true);
+      cen.push(new Uint8Array(c.buffer),nb);off+=30+nb.length+data.length});
+    const cs=cen.reduce((s,b)=>s+b.length,0),e=new DataView(new ArrayBuffer(22));
+    e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+    return new Blob([...parts,...cen,new Uint8Array(e.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+  const X=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
+  const col=n=>{let s='';n++;while(n>0){const m=(n-1)%26;s=String.fromCharCode(65+m)+s;n=Math.floor((n-1)/26)}return s};
+  // uslublar: nomi -> indeks (styles.xml dagi cellXfs tartibi bilan bir xil)
+  const S={def:0,title:1,sub:2,sec:3,th:4,td:5,n1:6,n0:7,tot:8,totN1:9,totN0:10,pct:11,totPct:12,n2:13,kL:14,kV:15,kV0:16,ok:17,bad:18,tdC:19,date:20};
+  const STY=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<numFmts count="3"><numFmt numFmtId="164" formatCode="#,##0.0"/><numFmt numFmtId="165" formatCode="#,##0.00"/><numFmt numFmtId="166" formatCode="0.0%"/></numFmts>
+<fonts count="9">
+<font><sz val="11"/><color rgb="FF1F2937"/><name val="Calibri"/><family val="2"/></font>
+<font><b/><sz val="16"/><color rgb="FF1F3A5F"/><name val="Calibri"/><family val="2"/></font>
+<font><i/><sz val="10"/><color rgb="FF6B7280"/><name val="Calibri"/><family val="2"/></font>
+<font><b/><sz val="12"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font>
+<font><b/><sz val="11"/><color rgb="FF1F2937"/><name val="Calibri"/><family val="2"/></font>
+<font><sz val="10"/><color rgb="FF4B5563"/><name val="Calibri"/><family val="2"/></font>
+<font><b/><sz val="16"/><color rgb="FF1F3A5F"/><name val="Calibri"/><family val="2"/></font>
+<font><b/><sz val="11"/><color rgb="FF1E7B4F"/><name val="Calibri"/><family val="2"/></font>
+<font><b/><sz val="11"/><color rgb="FFB42318"/><name val="Calibri"/><family val="2"/></font>
+</fonts>
+<fills count="6">
+<fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill>
+<fill><patternFill patternType="solid"><fgColor rgb="FF1F3A5F"/><bgColor indexed="64"/></patternFill></fill>
+<fill><patternFill patternType="solid"><fgColor rgb="FFE3EAF3"/><bgColor indexed="64"/></patternFill></fill>
+<fill><patternFill patternType="solid"><fgColor rgb="FFFFF1CC"/><bgColor indexed="64"/></patternFill></fill>
+<fill><patternFill patternType="solid"><fgColor rgb="FFF5F8FC"/><bgColor indexed="64"/></patternFill></fill>
+</fills>
+<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border>
+<border><left style="thin"><color rgb="FFC9D3E0"/></left><right style="thin"><color rgb="FFC9D3E0"/></right><top style="thin"><color rgb="FFC9D3E0"/></top><bottom style="thin"><color rgb="FFC9D3E0"/></bottom><diagonal/></border></borders>
+<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
+<cellXfs count="21">
+<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
+<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"><alignment vertical="center"/></xf>
+<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/>
+<xf numFmtId="0" fontId="3" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"><alignment vertical="center" indent="1"/></xf>
+<xf numFmtId="0" fontId="4" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>
+<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1"><alignment vertical="center"/></xf>
+<xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>
+<xf numFmtId="3" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>
+<xf numFmtId="0" fontId="4" fillId="4" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>
+<xf numFmtId="164" fontId="4" fillId="4" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1"/>
+<xf numFmtId="3" fontId="4" fillId="4" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1"/>
+<xf numFmtId="166" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>
+<xf numFmtId="166" fontId="4" fillId="4" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1"/>
+<xf numFmtId="165" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>
+<xf numFmtId="0" fontId="5" fillId="5" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>
+<xf numFmtId="164" fontId="6" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyBorder="1"><alignment horizontal="center" vertical="center"/></xf>
+<xf numFmtId="3" fontId="6" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyBorder="1"><alignment horizontal="center" vertical="center"/></xf>
+<xf numFmtId="0" fontId="7" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1"><alignment horizontal="center"/></xf>
+<xf numFmtId="0" fontId="8" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1"><alignment horizontal="center"/></xf>
+<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1"><alignment horizontal="center" vertical="center"/></xf>
+<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1"><alignment horizontal="left" vertical="center"/></xf>
+</cellXfs>
+<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>
+</styleSheet>`;
+  // sheet: {name, cols:[kenglik], rows:[{h, c:[{v,s,f}|null]}], merges:['A1:C1'], freeze:'A5', land:bool}
+  function sheetXml(sh){
+    const rows=sh.rows.map((r,i)=>{const cells=(r.c||[]).map((c,j)=>{if(!c)return'';const ref=col(j)+(i+1),st=` s="${S[c.s]||0}"`;
+        if(c.f)return`<c r="${ref}"${st}><f>${X(c.f)}</f>${typeof c.v==='number'&&isFinite(c.v)?`<v>${c.v}</v>`:''}</c>`;
+        if(c.v==null||c.v==='')return`<c r="${ref}"${st}/>`;
+        if(typeof c.v==='number')return isFinite(c.v)?`<c r="${ref}"${st}><v>${c.v}</v></c>`:`<c r="${ref}"${st}/>`;
+        return`<c r="${ref}"${st} t="inlineStr"><is><t xml:space="preserve">${X(c.v)}</t></is></c>`}).join('');
+      return`<row r="${i+1}"${r.h?` ht="${r.h}" customHeight="1"`:''}>${cells}</row>`}).join('');
+    let fz='';if(sh.freeze){const m=sh.freeze.match(/^([A-Z]+)(\d+)$/),y=+m[2]-1;fz=`<pane ySplit="${y}" topLeftCell="${sh.freeze}" activePane="bottomLeft" state="frozen"/>`}
+    return`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+<sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0" showGridLines="0">${fz}</sheetView></sheetViews>
+<sheetFormatPr defaultRowHeight="18"/><cols>${sh.cols.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols>
+<sheetData>${rows}</sheetData>${sh.merges&&sh.merges.length?`<mergeCells count="${sh.merges.length}">${sh.merges.map(m=>`<mergeCell ref="${m}"/>`).join('')}</mergeCells>`:''}
+<pageMargins left="0.5" right="0.5" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="${sh.land?'landscape':'portrait'}" fitToWidth="1" fitToHeight="0"/></worksheet>`}
+  function book(sheets){
+    const nm=n=>X(String(n).replace(/[\\\/\?\*\[\]:]/g,' ').slice(0,31));
+    const files=[
+      ['[Content_Types].xml',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`],
+      ['_rels/.rels',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+      ['xl/workbook.xml',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${nm(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets><calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>`],
+      ['xl/_rels/workbook.xml.rels',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`],
+      ['xl/styles.xml',STY],
+      ...sheets.map((s,i)=>[`xl/worksheets/sheet${i+1}.xml`,sheetXml(s)])];
+    return zip(files)}
+  function save(name,sheets){const blob=book(sheets),a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+    setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800)}
+  return{save,book,col}})();
+const xc=(v,s,f)=>({v,s,f});
+const r1=v=>Math.round(v*10)/10,r2=v=>Math.round(v*100)/100;
+// partiyalar jadvali (hisobot va arxiv uchun bir xil)
+function xlRecSheet(name,title,list){const t=tr(),u=t.u_cm;
+  const AN=[...new Set(list.flatMap(r=>(r.adds||[]).filter(x=>x.kg>0).map(x=>x.name)))];
+  const H=[...t.csvH,...AN.map(n=>`${n}, ${t.u_kg}`)],akg=(r,n)=>(r.adds||[]).filter(x=>x.name===n).reduce((s,x)=>s+(x.kg||0),0);
+  const pz=x=>parts(x).map(p=>`${p.name} ${p.z0==null?'—':fmt(p.z0,0)}→${p.z1==null?'—':fmt(p.z1,0)}`).join(', ');
+  const rows=[{h:28,c:[xc(title,'title')]},{c:[xc(`${t.unit} · ${t.xGen} ${dateStr(Date.now())}`,'sub')]},{c:[]},
+    {h:44,c:H.map(h=>xc(h,'th'))}];
+  const first=rows.length+1;
+  list.forEach(r=>{const ok=r.qOk==null?'':(r.qOk?t.yes:t.no);
+    rows.push({c:[xc(dateStr(r.ts),'date'),xc(r.grade||'—','tdC'),xc(r1(r.M||0),'n1'),xc(r.tv>0?r2(r.tv):'','n2'),xc(ok,r.qOk==null?'tdC':(r.qOk?'ok':'bad')),
+      xc(PN(r.cA)||'','td'),xc(r.mA>0?r1(r.mA):'','n1'),xc(pz(r.a),'td'),xc(PN(r.cB)||'','td'),xc(r.mB>0?r1(r.mB):'','n1'),xc(pz(r.b),'td'),
+      xc(r.c&&r.c.tank||'','tdC'),xc(r.c&&r.c.z0!=null?r.c.z0:'','n0'),xc(r.c&&r.c.z1!=null?Math.round(r.c.z1):'','n0'),
+      ...AN.map(n=>{const k=akg(r,n);return xc(k>0?r1(k):'','n1')})]})});
+  const last=rows.length,sum=k=>list.reduce((s,r)=>s+(r[k]||0),0);
+  if(list.length)rows.push({c:[xc(t.xTot,'tot'),xc(`${list.length}`,'tot'),xc(r1(sum('M')),'totN1',`SUM(C${first}:C${last})`),xc('','tot'),xc('','tot'),xc('','tot'),
+    xc(r1(sum('mA')),'totN1',`SUM(G${first}:G${last})`),xc('','tot'),xc('','tot'),xc(r1(sum('mB')),'totN1',`SUM(J${first}:J${last})`),xc('','tot'),xc('','tot'),xc('','tot'),xc('','tot'),
+    ...AN.map((n,j)=>{const cl=XL.col(14+j);return xc(r1(list.reduce((s2,r)=>s2+akg(r,n),0)),'totN1',`SUM(${cl}${first}:${cl}${last})`)})]});
+  return{name,cols:[17,10,11,14,9,14,13,28,14,13,28,12,12,12,...AN.map(()=>12)],rows,merges:['A1:H1','A2:H2'],freeze:'A5',land:true}}
+
+/* ===================== OYLIK / YILLIK HISOBOT ===================== */
+let repTxt='',repRows=[],repData=null;
+function repRange(){const t=tr(),now=new Date();
+  if(st.rMode==='y'){const y=Number($('rYr').value)||now.getFullYear();return{from:new Date(y,0,1).getTime(),to:new Date(y+1,0,1).getTime(),lbl:String(y),y}}
+  let [y,m]=String($('rPer').value||'').split('-').map(Number);if(!y||!m){y=now.getFullYear();m=now.getMonth()+1}
+  const mn=t.months[m-1];return{from:new Date(y,m-1,1).getTime(),to:new Date(y,m,1).getTime(),lbl:st.lang==='ru'?`${['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'][m-1]} ${y}`:`${mn} ${y}`}}
+function renderRep(){const t=tr(),R=repRange(),l=arch.filter(r=>r.ts>=R.from&&r.ts<R.to);
+  st.rPer=$('rPer').value;st.rYr=$('rYr').value;setLS('visc_pc',st);
+  $('rPer').hidden=st.rMode==='y';$('rYr').hidden=st.rMode!=='y';
+  $('rmM').setAttribute('aria-pressed',st.rMode!=='y');$('rmY').setAttribute('aria-pressed',st.rMode==='y');
+  if(!l.length){repTxt='';repRows=[];repData=null;$('repOut').innerHTML=`<h2>${esc(R.lbl)}</h2><div class="empty">${t.rNone}</div>`;return}
+  const G=new Map(),F=new Map(),Mo=new Map(),A=new Map();let tot=0,frTot=0;
+  const addF=(n,v)=>{if(!(v>0))return;const k=CAN(n)||'—';const o=F.get(k)||{n:n,t:0};o.t+=v;F.set(k,o);frTot+=v};
+  l.forEach(r=>{const M=r.M||0;tot+=M;const k=r.grade||'—',o=G.get(k)||{n:0,t:0};o.n++;o.t+=M;G.set(k,o);
+    addF(r.cA,r.mA);addF(r.cB,r.mB);
+    (r.adds||[]).forEach(x=>{if(!(x.kg>0))return;const q=A.get(x.name)||{n:0,kg:0};q.n++;q.kg+=x.kg;A.set(x.name,q)});
+    const mi=new Date(r.ts).getMonth(),q=Mo.get(mi)||{n:0,t:0};q.n++;q.t+=M;Mo.set(mi,q)});
+  const gs=[...G].sort((a,b)=>b[1].t-a[1].t),fs=[...F.values()].sort((a,b)=>b.t-a.t),as=[...A].sort((a,b)=>b[1].kg-a[1].kg),u=t.u_t;
+  let h=`<h2>${esc(t.repT(R.lbl))}</h2><div class="kpi"><div><div class="lb">${t.kTot}</div><div class="vv">${fmt(tot,1)}<small> ${u}</small></div></div><div><div class="lb">${t.kN}</div><div class="vv">${l.length}</div></div><div><div class="lb">${t.kFr}</div><div class="vv">${fmt(frTot,1)}<small> ${u}</small></div></div></div>`;
+  h+=`<h3 class="grp"><i></i>${t.byGr}</h3><div class="rtab"><table><thead><tr><th>${t.thGrade}</th><th class="num">${t.thBatch}</th><th class="num">${t.thTons}</th></tr></thead><tbody>${gs.map(([k,o])=>`<tr><td data-l="${t.thGrade}"><b>${esc(k)}</b></td><td class="num" data-l="${t.thBatch}">${o.n}</td><td class="num" data-l="${t.thTons}">${fmt(o.t,1)} ${u}</td></tr>`).join('')}</tbody></table></div>`;
+  h+=`<h3 class="grp"><i class="d"></i>${t.byFr}</h3><div class="rtab"><table><thead><tr><th>${t.thFr}</th><th class="num">${t.thTons}</th><th class="num">%</th></tr></thead><tbody>${fs.map(o=>`<tr><td data-l="${t.thFr}"><b>${esc(PN(o.n))}</b></td><td class="num" data-l="${t.thTons}">${fmt(o.t,1)} ${u}</td><td class="num" data-l="%">${fmt(frTot?o.t/frTot*100:0,1)} %</td></tr>`).join('')}</tbody></table></div>`;
+  if(as.length)h+=`<h3 class="grp"><i class="d"></i>${t.byAd}</h3><div class="rtab"><table><thead><tr><th>${t.thAd}</th><th class="num">${t.thBatch}</th><th class="num">${t.adKg}</th></tr></thead><tbody>${as.map(([k,o])=>`<tr><td data-l="${t.thAd}"><b>${esc(k)}</b></td><td class="num" data-l="${t.thBatch}">${o.n}</td><td class="num" data-l="${t.adKg}">${fmt(o.kg,1)} ${t.u_kg}</td></tr>`).join('')}</tbody></table></div>`;
+  const ms=st.lang==='ru'?['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь']:t.months;
+  if(st.rMode==='y')h+=`<h3 class="grp"><i></i>${t.byM}</h3><div class="rtab"><table><thead><tr><th>${t.thMonth}</th><th class="num">${t.thBatch}</th><th class="num">${t.thTons}</th></tr></thead><tbody>${[...Mo].sort((a,b)=>a[0]-b[0]).map(([m,o])=>`<tr><td data-l="${t.thMonth}">${ms[m]}</td><td class="num" data-l="${t.thBatch}">${o.n}</td><td class="num" data-l="${t.thTons}">${fmt(o.t,1)} ${u}</td></tr>`).join('')}</tbody></table></div>`;
+  h+=`<h3 class="grp"><i></i>${t.recH(l.length)}</h3><div class="row" style="margin:0 0 10px"><button class="btn sec" id="repDelAll" style="color:var(--bad)">🗑 ${t.delAll(esc(R.lbl))}</button></div>`+
+    l.map(r=>`<div class="it"><div><div class="nm">${dateStr(r.ts)} · ${esc(r.grade||'—')} · ${fmt(r.M||0,1)} ${u}</div><div class="ds">${esc(PN(r.cA)||'')} ${fmt(r.mA||0,1)} ${u} · ${esc(PN(r.cB)||'')} ${fmt(r.mB||0,1)} ${u}${r.c&&r.c.tank?' · → '+esc(r.c.tank):''}</div></div>
+      <div class="ac"><button class="mini del" data-rdel="${r.id}">🗑 ${t.del}</button></div></div>`).join('');
+  $('repOut').innerHTML=h;
+  $('repOut').querySelectorAll('[data-rdel]').forEach(b=>b.onclick=()=>askPin(()=>{const r=arch.find(x=>x.id===b.dataset.rdel);if(!r)return;
+    askYes(t.delRecQ+'\n\n'+dateStr(r.ts)+' · '+(r.grade||'—')+' · '+fmt(r.M||0,1)+' '+u,()=>{arch=arch.filter(x=>x.id!==r.id);setLS('visc_arch',arch);renderArc();renderRep()})}));
+  $('repDelAll').onclick=()=>askPin(()=>askYes(t.delAllQ(R.lbl,l.length),()=>{const ids=new Set(l.map(x=>x.id));arch=arch.filter(x=>!ids.has(x.id));setLS('visc_arch',arch);renderArc();renderRep()}));
+  const T=[t.repT(R.lbl),'',`${t.kTot}: ${fmt(tot,1)} ${u} (${t.kN.toLowerCase()}: ${l.length})`,'',t.byGr+':',...gs.map(([k,o])=>`  ${k} — ${fmt(o.t,1)} ${u} (${o.n})`),'',t.byFr+':',...fs.map(o=>`  ${PN(o.n)} — ${fmt(o.t,1)} ${u}`),`  = ${fmt(frTot,1)} ${u}`];
+  if(as.length)T.push('',t.byAd+':',...as.map(([k,o])=>`  ${k} — ${fmt(o.kg,1)} ${t.u_kg} (${o.n})`));
+  if(st.rMode==='y')T.push('',t.byM+':',...[...Mo].sort((a,b)=>a[0]-b[0]).map(([m,o])=>`  ${ms[m]} — ${fmt(o.t,1)} ${u} (${o.n})`));
+  repTxt=T.join('\n');repData={R,l,gs,fs,Mo,ms,tot,frTot,as};
+  repRows=[[t.repT(R.lbl)],[],[t.byGr],[t.thGrade,t.thBatch,t.thTons],...gs.map(([k,o])=>[k,o.n,o.t]),[t.kTot,l.length,tot],[],[t.byFr],[t.thFr,t.thTons],...fs.map(o=>[PN(o.n),o.t]),[t.kFr,frTot]]}
+function repCopy(){const t=tr();if(!repTxt)return;const done=()=>$('rMsg2').innerHTML=`<div class="okmsg">${t.rCopied}</div>`;
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repTxt).then(done,()=>alert(repTxt));else alert(repTxt)}
+function repCsv(){if(!repData)return;const t=tr(),{R,l,gs,fs,Mo,ms,tot,frTot,as}=repData;
+  const rows=[{h:30,c:[xc(t.repT(R.lbl),'title')]},{c:[xc(`${t.unit} · ${t.xGen} ${dateStr(Date.now())}`,'sub')]},{c:[]},
+    {h:32,c:[xc(`${t.kTot}, ${t.u_t}`,'kL'),xc(t.kN,'kL'),xc(`${t.kFr}, ${t.u_t}`,'kL')]},
+    {h:34,c:[xc(r1(tot),'kV'),xc(l.length,'kV0'),xc(r1(frTot),'kV')]},{c:[]}];
+  const merges=['A1:C1','A2:C2'];
+  const block=(title,head,data,totRow)=>{rows.push({h:22,c:[xc(title,'sec'),xc('','sec'),xc('','sec')]});merges.push(`A${rows.length}:C${rows.length}`);
+    rows.push({h:22,c:head.map(h=>xc(h,'th'))});const a=rows.length+1;data.forEach(d=>rows.push({c:d}));const b=rows.length;
+    if(totRow)rows.push({c:totRow(a,b)});rows.push({c:[]})};
+  block(t.byGr,[t.thGrade,t.thBatch,`${t.thTons}, ${t.u_t}`],gs.map(([k,o])=>[xc(k,'td'),xc(o.n,'n0'),xc(r1(o.t),'n1')]),
+    (a,b)=>[xc(t.xTot,'tot'),xc(l.length,'totN0',`SUM(B${a}:B${b})`),xc(r1(tot),'totN1',`SUM(C${a}:C${b})`)]);
+  const frA=rows.length+3,frB=frA+fs.length-1;
+  block(t.byFr,[t.thFr,`${t.thTons}, ${t.u_t}`,'%'],fs.map((o,i)=>[xc(PN(o.n),'td'),xc(r1(o.t),'n1'),xc(frTot?o.t/frTot:0,'pct',`IF($B$${frB+1}=0,0,B${frA+i}/$B$${frB+1})`)]),
+    (a,b)=>[xc(t.xTot,'tot'),xc(r1(frTot),'totN1',`SUM(B${a}:B${b})`),xc(1,'totPct',`SUM(C${a}:C${b})`)]);
+  if(as&&as.length)block(t.byAd,[t.thAd,t.thBatch,`${t.adKg}, ${t.u_kg}`],as.map(([k,o])=>[xc(k,'td'),xc(o.n,'n0'),xc(r1(o.kg),'n1')]),
+    (a,b)=>[xc(t.xTot,'tot'),xc('','tot'),xc(r1(as.reduce((s,x)=>s+x[1].kg,0)),'totN1',`SUM(C${a}:C${b})`)]);
+  if(st.rMode==='y')block(t.byM,[t.thMonth,t.thBatch,`${t.thTons}, ${t.u_t}`],[...Mo].sort((a,b)=>a[0]-b[0]).map(([m,o])=>[xc(ms[m],'td'),xc(o.n,'n0'),xc(r1(o.t),'n1')]),
+    (a,b)=>[xc(t.xTot,'tot'),xc(l.length,'totN0',`SUM(B${a}:B${b})`),xc(r1(tot),'totN1',`SUM(C${a}:C${b})`)]);
+  const rep={name:t.xRep,cols:[30,16,18],rows,merges};
+  const recs=xlRecSheet(t.xRecs,`${t.repT(R.lbl)} · ${t.xRecs}`,l.slice().sort((a,b)=>a.ts-b.ts));
+  const name=`yog_hisobot_${R.lbl.replace(/\s+/g,'_')}.xlsx`;XL.save(name,[rep,recs]);
+  $('rMsg2').innerHTML=`<div class="okmsg">${t.csvOk(name)}</div>`}
+function shift(){
+  const t=tr(),from=Date.now()-12*3600*1000,l=arch.filter(r=>r.ts>=from).slice().reverse();
+  if(!l.length){$('shiftMsg').innerHTML=`<div class="msg">${t.shNone}</div>`;return}
+  const d=dateStr(Date.now()).slice(0,10),out=[t.shH(d),''];let tot=0;
+  l.forEach((r,i)=>{tot+=r.M||0;
+    out.push(`${i+1}) ${dateStr(r.ts).slice(-5)} · ${r.grade||'—'} · ${fmt(r.M,1)} ${tr().u_t} · ${fmt(r.tv,2)} cSt`+(r.qOk==null?'':(r.qOk?t.shIn:t.shOut)));
+    out.push(`   ${PN(r.cA)||t.compA}: ${fmt(r.mA,1)} ${tr().u_t}`+(parts(r.a).length?` (${pTxt(r.a)} ${tr().u_cm})`:''));
+    if(r.mB>1e-9)out.push(`   ${PN(r.cB)||t.compB}: ${fmt(r.mB,1)} ${tr().u_t}`+(parts(r.b).length?` (${pTxt(r.b)} ${tr().u_cm})`:''));
+    if(adTxt(r.adds))out.push(`   ${t.shAd}: ${adTxt(r.adds)}`);
+    if(r.c&&r.c.tank)out.push(`   ${t.shTo}: ${r.c.tank} ${r.c.z0==null?'—':fmt(r.c.z0,0)} → ${r.c.z1==null?'—':fmt(r.c.z1,0)} ${tr().u_cm}`);
+    out.push('')});
+  out.push(t.shTot(l.length,fmt(tot,1)));
+  const txt=out.join('\n'),done=()=>$('shiftMsg').innerHTML=`<div class="okmsg">${t.shOk}</div>`;
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>alert(txt));else alert(txt);
+}
+
+/* ===================== ZAXIRA (internetsiz) ===================== */
+const today=()=>new Date().toISOString().slice(0,10);
+function download(name,text,type){
+  const blob=new Blob([text],{type});const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800)}
+function bkWarn(){const t=tr(),lb=st.lastBackup||0;
+  if(!arch.length){$('bkWarn').innerHTML='';return}
+  const days=lb?Math.floor((Date.now()-lb)/86400000):null;
+  $('bkWarn').innerHTML=!lb?`<div class="warn">${t.bkNever}</div>`:(days>=7?`<div class="warn">${t.bkOld(days)}</div>`:'')}
+function backup(){const t=tr(),name=`yog_zaxira_${today()}.json`;
+  arch=getLS('visc_arch',[]);
+  download(name,JSON.stringify({app:'yog-tayyorlash',v:1,date:new Date().toISOString(),tanks,grades,arch,adds}),'application/json');
+  st.lastBackup=Date.now();setLS('visc_pc',st);bkWarn();
+  $('bkMsg').innerHTML=`<div class="okmsg">${t.bkOk(name)}</div>`}
+function restore(file){const t=tr(),rd=new FileReader();
+  rd.onload=()=>{let o;try{o=JSON.parse(rd.result)}catch(e){o=null}
+    if(!o||o.app!=='yog-tayyorlash'||!Array.isArray(o.tanks)||!Array.isArray(o.grades)||!Array.isArray(o.arch)){$('bkMsg').innerHTML=`<div class="msg">${t.rsErr}</div>`;return}
+    askYes(t.rsQ(o.arch.length,o.tanks.length,o.grades.length),()=>{
+    tanks=o.tanks;grades=o.grades;setLS('visc_tanks',tanks);setLS('visc_grades',grades);
+    if(Array.isArray(o.adds)){adds=o.adds;setLS('visc_adds',adds);renderAd()}
+    arch=getLS('visc_arch',[]);if(!Array.isArray(arch))arch=[];
+    const have=new Set(arch.map(r=>r.id));let n=0;
+    o.arch.forEach(r=>{if(r&&r.id&&!have.has(r.id)){arch.push(r);n++}});
+    arch.sort((a,b)=>b.ts-a.ts);setLS('visc_arch',arch);
+    fillAll();calc();renderArc();if(st.view==='set')renderSet();
+    $('bkMsg').innerHTML=`<div class="okmsg">${t.rsOk(n,arch.length)}</div>`})};
+  rd.readAsText(file)}
+function exportCSV(){const t=tr();if(!arch.length){$('bkMsg').innerHTML=`<div class="msg">${t.rNone}</div>`;return}
+  const name=`yog_arxiv_${today()}.xlsx`;
+  XL.save(name,[xlRecSheet(t.xArc,t.xArcT,arch.slice().sort((a,b)=>a.ts-b.ts))]);
+  $('bkMsg').innerHTML=`<div class="okmsg">${t.csvOk(name)}</div>`}
+$('bkBtn').onclick=backup;$('csvBtn').onclick=exportCSV;
+$('rsBtn').onclick=()=>{$('rsFile').value='';$('rsFile').click()};
+$('rsFile').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(f)restore(f)});
+
+/* ===================== IMPORT ===================== */
+$('setBtn').onclick=()=>{$('imMsg').innerHTML='';$('dlg').showModal()};
+$('dlgClose').onclick=()=>$('dlg').close();
+$('imBtn').onclick=()=>{
+  let o;try{o=JSON.parse($('imTxt').value)}catch(e){o=null}
+  const tk=o&&(Array.isArray(o)?o:o.tanks),gr=o&&!Array.isArray(o)?o.grades:null;
+  const okTk=Array.isArray(tk)&&tk.every(x=>x&&x.id&&x.name&&((x.type==='coef'&&x.k>0)||(x.type==='table'&&Array.isArray(x.rows)&&x.rows.length>=2)));
+  if(!okTk){$('imMsg').innerHTML=`<div class="msg">${tr().imErr}</div>`;return}
+  tanks=tk;setLS('visc_tanks',tanks);
+  if(Array.isArray(gr)&&gr.length){grades=gr;setLS('visc_grades',grades)}
+  fillAll();calc();if(st.view==='set')renderSet();$('imMsg').innerHTML=`<div class="okmsg">${tr().imOk(tanks.length,Array.isArray(gr)?gr.length:null)}</div>`;
+};
+
+/* ===================== KALKULYATORLAR ===================== */
+const OUT=(lb,v,u,extra='')=>`<div class="lb">${lb}</div><div class="vv">${v}<small> ${u}</small></div>${extra}`;
+const ERR=m=>`<div class="msg" style="margin:0">${m}</div>`;
+let c2res=null;
+function calcTools(){
+  const t0=tr();
+  ['c1A','c1p','c1B','c2A','c2B','c2t','c2M','kM','kv','kt','kc'].forEach(i=>st[i]=$(i).value);setLS('visc_pc',st);
+  // 1) foiz -> qovushqoqlik
+  const a=num('c1A'),p=num('c1p'),b=num('c1B');
+  if(!(a>0&&b>0)||isNaN(p))$('c1o').innerHTML='';
+  else if(p<0||p>100)$('c1o').innerHTML=ERR(t0.pctErr);
+  else $('c1o').innerHTML=OUT(t0.mixV,fmt(Linv(p/100*L(a)+(1-p/100)*L(b)),2),'cSt');
+  // 2) qovushqoqlik -> foiz
+  const A=num('c2A'),B=num('c2B'),t=num('c2t'),M=num('c2M');c2res=null;
+  if(!(A>0&&B>0&&t>0))$('c2o').innerHTML='';
+  else if(Math.abs(A-B)<1e-9||t<Math.min(A,B)||t>Math.max(A,B))$('c2o').innerHTML=ERR(t0.tgtErr(fmt(Math.min(A,B),2),fmt(Math.max(A,B),2)));
+  else{const pa=(L(t)-L(B))/(L(A)-L(B))*100;c2res={A,B,t,M};
+    $('c2o').innerHTML=`<div class="f2" style="margin:0"><div>${OUT(t0.compA,fmt(pa,1),'%',M>0?`<div>${fmt(M*pa/100,1)} ${tr().u_t}</div>`:'')}</div><div>${OUT(t0.compB,fmt(100-pa,1),'%',M>0?`<div>${fmt(M*(100-pa)/100,1)} ${tr().u_t}</div>`:'')}</div></div>`}
+  $('c2Go').disabled=!c2res;
+  // 3) tuzatish
+  const kM=num('kM'),kv=num('kv'),kt=num('kt'),kc=num('kc');
+  if(!(kM>0&&kv>0&&kt>0&&kc>0))$('ko').innerHTML=`<div class="lb">${t0.kNeed}</div>`;
+  else if(Math.abs(kv-kt)<1e-9)$('ko').innerHTML=`<div class="okmsg" style="margin:0">${t0.kSame}</div>`;
+  else if(kv>kt&&!(kc<kt))$('ko').innerHTML=ERR(t0.kLight(fmt(kt,2)));
+  else if(kv<kt&&!(kc>kt))$('ko').innerHTML=ERR(t0.kHeavy(fmt(kt,2)));
+  else{const x=kM*(L(kv)-L(kt))/(L(kt)-L(kc));
+    $('ko').innerHTML=OUT(t0.kAdd,fmt(x,1),tr().u_t,`<div class="line"><span>${t0.kNew}</span><b>${fmt(kM+x,1)} ${tr().u_t}</b></div><div class="line"><span>${t0.kRes}</span><b>${fmt(Linv((kM*L(kv)+x*L(kc))/(kM+x)),2)} cSt</b></div>`)}
+}
+function setView(v){st.view=v;setLS('visc_pc',st);
+  $('vPrep').hidden=v!=='prep';$('vCalc').hidden=v!=='calc';$('vSet').hidden=v!=='set';$('vRep').hidden=v!=='rep';if(v==='set')renderSet();if(v==='rep')renderRep();
+  document.querySelectorAll('nav [data-v]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))}
+function tick(){const d=new Date(),p=n=>String(n).padStart(2,'0');
+  $('clk').textContent=`${p(d.getHours())}:${p(d.getMinutes())}`;
+  const t=tr();$('dte').textContent=t.date(d.getDate(),t.months[d.getMonth()],d.getFullYear())}
+
+/* ===================== REZERVUAR VA MARKALAR ===================== */
+let edTk=null,edRole='src',edGr=null;
+function renderSet(){const t=tr();
+  const key=x=>x.role==='dst'?'~dst':(x.park||'~');
+  const rk=g=>g==='~dst'?2:(g==='~'?1:0);
+  const groups=[...new Set(tanks.map(key))].sort((a,b)=>rk(a)-rk(b)||a.localeCompare(b,undefined,{numeric:true}));
+  $('tkList').innerHTML=groups.map(g=>{const l=tanks.filter(x=>key(x)===g).sort(byName);
+    const title=g==='~dst'?t.grpDst:(g==='~'?t.grpNoPark:t.grpSrc(esc(g)));
+    return `<h3 class="grp"><i class="${g==='~dst'?'d':''}"></i>${title}</h3>`+l.map(x=>`<div class="it"><div><div class="nm">${esc(x.name)}${x.product?`<span class="pr">${esc(PN(x.product))}</span>`:''}</div>
+      <div class="ds">${x.type==='coef'?t.tkDesc(fmt(x.k,3),mxH(x),x.dead||0)+(x.maxH>0?'':t.defMx):t.tbl}${x.visc>0?` · <b>${fmt(x.visc,2)} cSt</b>`:''}</div></div>
+      <div class="ac"><button class="mini" data-ed="${x.id}">${t.edit}</button><button class="mini del" data-del="${x.id}">${t.del}</button></div></div>`).join('')}).join('');
+  $('tkList').querySelectorAll('[data-ed]').forEach(b=>b.onclick=()=>openTk(tanks.find(x=>x.id===b.dataset.ed)));
+  $('tkList').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{const x=tanks.find(y=>y.id===b.dataset.del);
+    if(x)askYes(t.delQ(x.name),()=>{tanks=tanks.filter(y=>y.id!==x.id);setLS('visc_tanks',tanks);fillAll();calc();renderSet()})});
+  renderAdSet();
+  $('grList').innerHTML=grades.map(g=>`<div class="it"><div><div class="nm">${esc(g.name)}</div><div class="ds">${esc(t.grDesc(PN(g.compA)||t.compA,PN(g.compB)||t.compB,fmt(g.vMin,0),fmt(g.vMax,0)))}</div></div>
+    <div class="ac"><button class="mini" data-ged="${g.id}">${t.edit}</button><button class="mini del" data-gdel="${g.id}">${t.del}</button></div></div>`).join('');
+  $('grList').querySelectorAll('[data-ged]').forEach(b=>b.onclick=()=>openGr(grades.find(x=>x.id===b.dataset.ged)));
+  $('grList').querySelectorAll('[data-gdel]').forEach(b=>b.onclick=()=>{const g=grades.find(y=>y.id===b.dataset.gdel);
+    if(g)askYes(t.delQ(g.name),()=>{grades=grades.filter(y=>y.id!==g.id);setLS('visc_grades',grades);fillAll();calc();renderSet()})});
+  $('dlPark').innerHTML=[...new Set(tanks.map(x=>x.park).filter(Boolean))].sort().map(v=>`<option value="${esc(v)}">`).join('');
+  $('dlProd').innerHTML=[...new Set(['1-fraksiya','2-fraksiya','3-fraksiya','Ost. masla',...tanks.map(x=>x.product).filter(Boolean),...grades.map(g=>g.name)])].map(v=>`<option value="${esc(v)}">`).join('')}
+function setRole(r){edRole=r;$('rSrc').setAttribute('aria-pressed',r==='src');$('rDst').setAttribute('aria-pressed',r==='dst')}
+function capPrev(){const k=num('fK'),m=num('fMax')>0?num('fMax'):DEF_MAXH;$('fCap').textContent=k>0&&m>0?tr().capTxt(fmt(k*m,1)):''}
+function openTk(x,role){const t=tr();edTk=x||null;
+  $('dTkH').textContent=x?t.tkEdit(x.name):t.tkNew;
+  $('fName').value=x?x.name:'';$('fPark').value=x?(x.park||''):'';$('fProd').value=x?(x.product||''):'';
+  $('fK').value=x&&x.type==='coef'?String(x.k):'';$('fMax').value=x&&x.maxH>0?String(x.maxH):'';$('fDead').value=x?String(x.dead||0):'30';$('fVisc').value=x&&x.visc>0?String(x.visc):'';
+  const tbl=x&&x.type!=='coef';$('fK').disabled=tbl;$('fMax').disabled=tbl;
+  setRole(x?(x.role==='dst'?'dst':'src'):(role||'src'));$('fMsg').innerHTML='';capPrev();$('dTk').showModal()}
+function saveTk(){const t=tr(),name=$('fName').value.trim(),k=num('fK'),mx=num('fMax'),dead=num('fDead');
+  const tbl=edTk&&edTk.type!=='coef';
+  if(!name||(!tbl&&!(k>0))){$('fMsg').innerHTML=`<div class="msg">${t.tkErr}</div>`;return}
+  if(tanks.some(x=>x.name.toLowerCase()===name.toLowerCase()&&(!edTk||x.id!==edTk.id))){$('fMsg').innerHTML=`<div class="msg">${t.tkDup}</div>`;return}
+  const base=edTk||{id:'t'+Date.now(),type:'coef',unit:'cm',res:'t',rows:[]};
+  const vs=num('fVisc');Object.assign(base,{name,park:$('fPark').value.trim(),product:$('fProd').value.trim(),role:edRole,dead:dead>=0?dead:0,visc:vs>0?vs:null});
+  if(!tbl){base.k=k;base.maxH=mx>0?mx:0}
+  if(!edTk)tanks.push(base);
+  setLS('visc_tanks',tanks);$('dTk').close();fillAll();calc();renderSet()}
+function openGr(g){const t=tr();edGr=g||null;
+  $('dGrH').textContent=g?t.grEdit(g.name):t.grNew;
+  $('gName').value=g?g.name:'';$('gCA').value=g?(g.compA||''):'';$('gCB').value=g?(g.compB||''):'';
+  $('gMin').value=g?String(g.vMin):'';$('gMax').value=g?String(g.vMax):'';$('gMsg').innerHTML='';$('dGr').showModal()}
+function saveGr(){const t=tr(),name=$('gName').value.trim(),lo=num('gMin'),hi=num('gMax');
+  if(!name||!(lo>0)||!(hi>lo)){$('gMsg').innerHTML=`<div class="msg">${t.grErr}</div>`;return}
+  const g=edGr||{id:'g'+Date.now()};
+  Object.assign(g,{name,compA:$('gCA').value.trim()||t.compA,compB:$('gCB').value.trim()||t.compB,vMin:lo,vMax:hi});
+  if(!edGr)grades.push(g);
+  setLS('visc_grades',grades);$('dGr').close();fillAll();calc();renderSet()}
+$('addSrc').onclick=()=>openTk(null,'src');$('addDst').onclick=()=>openTk(null,'dst');
+$('rSrc').onclick=()=>setRole('src');$('rDst').onclick=()=>setRole('dst');
+$('fSave').onclick=saveTk;$('fCancel').onclick=()=>$('dTk').close();['fK','fMax'].forEach(i=>$(i).addEventListener('input',capPrev));
+$('addGr').onclick=()=>openGr(null);$('gSave').onclick=saveGr;$('gCancel').onclick=()=>$('dGr').close();
+$('expBtn').onclick=()=>{const txt=JSON.stringify({tanks,grades}),done=()=>$('expMsg').innerHTML=`<div class="okmsg">${tr().expOk}</div>`;
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>prompt('',txt));else prompt('',txt)};
+
+/* ===================== ISHGA TUSHIRISH ===================== */
+['c1A','c1p','c1B','c2A','c2B','c2t','c2M','kM','kv','kt','kc'].forEach(i=>{if(st[i]!=null)$(i).value=st[i];$(i).addEventListener('input',calcTools)});
+document.querySelectorAll('nav [data-v]').forEach(b=>b.onclick=()=>setView(b.dataset.v));
+$('c2Go').onclick=()=>{if(!c2res)return;$('vA').value=String(c2res.A);$('vB').value=String(c2res.B);$('tv').value=String(c2res.t);if(c2res.M>0)$('M').value=String(c2res.M);setView('prep');calc()};
+$('prtBtn').onclick=()=>window.print();
+applyLang();
+document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{st.lang=b.dataset.lang;setLS('visc_pc',st);applyLang();fillAll();renderX('A');renderX('B');calc();calcTools();renderArc();renderAd();tick();if(st.view==='set')renderSet();if(st.view==='rep')renderRep()});
+tick();setInterval(tick,15000);calcTools();setView(['calc','set','rep'].includes(st.view)?st.view:'prep');
+fillAll();
+FIELDS.forEach(i=>$(i).addEventListener('input',calc));
+SELS.forEach(i=>$(i).addEventListener('change',()=>{if(i==='g')clearTanks();else tankVisc(i);calc()}));
+// marka almashsa: pastdagi rezervuarlar tozalanadi, operator o'zi tanlaydi
+function clearTanks(){$('tv').value='';['tA','tB','tC'].forEach(i=>$(i).value='');
+  ['zA','vA','rA','dA','zB','vB','rB','dB','dC','vC'].forEach(i=>$(i).value='');$('zC').value='0';
+  st.xA=[];st.xB=[];renderX('A');renderX('B');renderAd()}
+$('saveBtn').onclick=saveArc;$('shiftBtn').onclick=shift;
+renderAd();
+$('addAd').onclick=()=>{const L=adRows();if(L.length>=8)return;L.push({a:'',p:'',kg:''});setLS('visc_pc',st);renderAd()};
+$('adNew').onclick=()=>{adds.push({id:'ad'+Date.now(),name:tr().adName+' '+(adds.length+1),dose:0});setLS('visc_adds',adds);renderAdSet();renderAd();const e=$('adSet').querySelector(`[data-si="${adds.length-1}"][data-sf="name"]`);if(e){e.focus();e.select()}};
+['A','B'].forEach(c=>{if(!Array.isArray(st['x'+c]))st['x'+c]=[];renderX(c);
+  $('add'+c).onclick=()=>{if(st['x'+c].length>=5)return;st['x'+c].push({tank:'',z:'',r:'',v:''});setLS('visc_pc',st);renderX(c)}});
+(()=>{const n=new Date(),p=x=>String(x).padStart(2,'0');$('rPer').value=st.rPer||`${n.getFullYear()}-${p(n.getMonth()+1)}`;$('rYr').value=st.rYr||n.getFullYear();
+  $('rmM').onclick=()=>{st.rMode='m';renderRep()};$('rmY').onclick=()=>{st.rMode='y';renderRep()};
+  $('rPer').addEventListener('change',renderRep);$('rYr').addEventListener('input',renderRep);
+  $('rCopy').onclick=repCopy;$('rCsv').onclick=repCsv;$('rPrint').onclick=()=>window.print();
+  $('aSave').onclick=saveArcEd;$('aCancel').onclick=()=>$('dArc').close();$('aDel').onclick=delArc;$('pinBtn').onclick=changePin})();
+$('rA').value='';$('rB').value='';delete st.rA;delete st.rB;
+renderArc();calc();if(st.view==='rep')renderRep();
+</script>
+</body>
+</html>
