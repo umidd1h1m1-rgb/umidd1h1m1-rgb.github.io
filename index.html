@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umidrobot — XAUUSD uchun MT5 robot</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0D1117}
+a{color:#E8B04B}a:hover{color:#F5CB7A}
+</style>
+
+<style>html{scroll-behavior:smooth}@media(max-width:600px){h1{font-size:38px!important}h2{font-size:30px!important}}</style>
+</head>
+<body>
+
+<div style="min-height: 100vh; background: #0D1117; color: #E6E8EC; font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif; font-size: 17px; line-height: 1.6">
+
+<header style="border-bottom: 1px solid #222A35">
+<div style="max-width: 1180px; margin: 0 auto; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; align-items: center; gap: 12px">
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#E8B04B" stroke-width="2"><rect x="4" y="8" width="24" height="18" rx="4"></rect><path d="M16 3v5M11 15v3M21 15v3M11 22h10"></path></svg>
+<span style="font-family: 'Sora', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.01em">Umidrobot</span>
+</div>
+<nav style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px">
+<a href="#ishlash" style="color: #C3C8D1; text-decoration: none">Qanday ishlaydi</a>
+<a href="#natijalar" style="color: #C3C8D1; text-decoration: none">Natijalar</a>
+<a href="#narx" style="color: #C3C8D1; text-decoration: none">Narx</a>
+<a href="#savollar" style="color: #C3C8D1; text-decoration: none">Savol-javob</a>
+<a href="#aloqa" style="background: #E8B04B; color: #14110A; text-decoration: none; font-weight: 600; padding: 12px 20px; border-radius: 8px">Bog'lanish</a>
+</nav>
+</div>
+</header>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 88px 24px 72px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #E8B04B; letter-spacing: 0.08em">METATRADER 5 · XAUUSD</div>
+<h1 style="margin: 0; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 56px; line-height: 1.1; letter-spacing: -0.02em">Oltin bozori uchun savdo roboti</h1>
+<p style="margin: 0; font-size: 20px; color: #B4BAC4; max-width: 600px">Umidrobot — zona-recovery mantig'ida ishlaydigan Expert Advisor. Kichik cent hisobda ehtiyotkor boshlash va natijani o'zingiz kuzatish uchun yaratilgan.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; padding-top: 8px">
+<a href="#aloqa" style="background: #E8B04B; color: #14110A; text-decoration: none; font-weight: 600; padding: 16px 28px; border-radius: 10px; font-size: 17px">Robotni olish</a>
+<a href="#natijalar" style="border: 1px solid #3A4452; color: #E6E8EC; text-decoration: none; font-weight: 500; padding: 16px 28px; border-radius: 10px; font-size: 17px">Natijalarni ko'rish</a>
+</div>
+</div>
+<div style="flex: 1 1 340px; background: #151B24; border: 1px solid #252E3B; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-family: 'Sora', sans-serif; font-weight: 600; font-size: 18px; padding-bottom: 12px">Robot haqida qisqacha</div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #252E3B"><span style="color: #9AA1AD">Platforma</span><span style="font-weight: 500">MetaTrader 5</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #252E3B"><span style="color: #9AA1AD">Instrument</span><span style="font-weight: 500">XAUUSD (oltin)</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #252E3B"><span style="color: #9AA1AD">Strategiya</span><span style="font-weight: 500">Zona-recovery</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #252E3B"><span style="color: #9AA1AD">Hisob turi</span><span style="font-weight: 500">Cent, hedging</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #252E3B"><span style="color: #9AA1AD">Minimal depozit</span><span style="font-weight: 500">[MINIMAL DEPOZIT]</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #252E3B"><span style="color: #9AA1AD">Muallif</span><span style="font-weight: 500">Umidjon, 18 yillik treyder</span></div>
+</div>
+</section>
+
+<section id="ishlash" style="background: #11161E; border-top: 1px solid #1E2530; border-bottom: 1px solid #1E2530">
+<div style="max-width: 1180px; margin: 0 auto; padding: 88px 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 680px">
+<h2 style="margin: 0; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -0.01em">Qanday ishlaydi</h2>
+<p style="margin: 0; color: #B4BAC4">Robot savdoni o'zi ochadi, kuzatadi va yopadi. Mantiq to'rt bosqichdan iborat.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #E8B04B; font-size: 15px">01</div>
+<h3 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 20px">Kirish</h3>
+<p style="margin: 0; color: #B4BAC4; font-size: 16px">Robot belgilangan shart bajarilganda birinchi savdoni kichik lot bilan ochadi.</p>
+</div>
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #E8B04B; font-size: 15px">02</div>
+<h3 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 20px">Zona</h3>
+<p style="margin: 0; color: #B4BAC4; font-size: 16px">Kirish narxi atrofida ikki qat'iy chiziq — yuqori va pastki zona chegarasi belgilanadi.</p>
+</div>
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #E8B04B; font-size: 15px">03</div>
+<h3 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 20px">Qarama-qarshi savdo</h3>
+<p style="margin: 0; color: #B4BAC4; font-size: 16px">Narx teskari yursa, robot zona chegarasida qarama-qarshi yo'nalishda kattaroq lot ochadi.</p>
+</div>
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'IBM Plex Mono', monospace; color: #E8B04B; font-size: 15px">04</div>
+<h3 style="margin: 0; font-family: 'Sora', sans-serif; font-size: 20px">Umumiy yopilish</h3>
+<p style="margin: 0; color: #B4BAC4; font-size: 16px">Barcha savdolar umumiy foyda maqsadiga yetganda birdaniga yopiladi.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="natijalar" style="max-width: 1180px; margin: 0 auto; padding: 88px 24px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 680px">
+<h2 style="margin: 0; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -0.01em">Natijalar</h2>
+<p style="margin: 0; color: #B4BAC4">Faqat tasdiqlangan monitoring natijalari. Real hisobdagi har bir savdoni o'zingiz tekshira olasiz.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px">
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 6px"><span style="color: #9AA1AD; font-size: 15px">Umumiy o'sish</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px">[ % ]</span></div>
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 6px"><span style="color: #9AA1AD; font-size: 15px">Maksimal drawdown</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px">[ % ]</span></div>
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 6px"><span style="color: #9AA1AD; font-size: 15px">Kuzatuv davri</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px">[ OY ]</span></div>
+<div style="background: #151B24; border: 1px solid #252E3B; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; gap: 6px"><span style="color: #9AA1AD; font-size: 15px">Savdolar soni</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 28px">[ SON ]</span></div>
+</div>
+<div style="border: 1px dashed #3A4452; border-radius: 14px; padding: 48px 24px; text-align: center; color: #9AA1AD">[Myfxbook yoki boshqa monitoring grafigi va havolasi shu yerda]</div>
+</section>
+
+<section id="narx" style="background: #11161E; border-top: 1px solid #1E2530; border-bottom: 1px solid #1E2530">
+<div style="max-width: 1180px; margin: 0 auto; padding: 88px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -0.01em">Narx</h2>
+<p style="margin: 0; color: #B4BAC4; max-width: 520px">Bir martalik to'lov. O'rnatish va sozlashda shaxsan yordam beraman.</p>
+</div>
+<div style="flex: 1 1 360px; background: #151B24; border: 1px solid #E8B04B; border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'Sora', sans-serif; font-weight: 600; font-size: 18px">Umidrobot litsenziyasi</div>
+<div style="font-family: 'Sora', sans-serif; font-weight: 700; font-size: 44px">[NARX]</div>
+<div style="display: flex; flex-direction: column; gap: 10px; color: #C3C8D1; font-size: 16px">
+<div style="display: flex; gap: 10px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8B04B" stroke-width="2.5"><path d="M5 12l5 5L20 7"></path></svg>EA fayli (.ex5) va tavsiya etilgan sozlamalar</div>
+<div style="display: flex; gap: 10px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8B04B" stroke-width="2.5"><path d="M5 12l5 5L20 7"></path></svg>O'rnatish bo'yicha yordam</div>
+<div style="display: flex; gap: 10px; align-items: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E8B04B" stroke-width="2.5"><path d="M5 12l5 5L20 7"></path></svg>Yangilanishlar [MUDDAT]</div>
+</div>
+<a href="#aloqa" style="background: #E8B04B; color: #14110A; text-decoration: none; font-weight: 600; padding: 16px 24px; border-radius: 10px; text-align: center">Buyurtma berish</a>
+</div>
+</div>
+</section>
+
+<section style="max-width: 1180px; margin: 0 auto; padding: 88px 24px 0">
+<div style="background: #1E1712; border: 1px solid #5A4220; border-radius: 16px; padding: 36px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 28px; color: #F2C779">Risk haqida ochiq gap</h2>
+<p style="margin: 0; color: #D9CDB8">Zona-recovery strategiyasida har bir yangi savdo lotni oshiradi. Narx uzoq vaqt bir tomonga ketsa, hisobdagi mablag'ning hammasi yo'qolishi mumkin. Shuning uchun robotni faqat yo'qotsangiz ham qiynalmaydigan pul bilan va avval demo yoki cent hisobda sinab ishlating.</p>
+<p style="margin: 0; color: #D9CDB8">O'tgan natijalar kelajakdagi foydani kafolatlamaydi. Hech qanday robot "pul yo'qotmaslik"ni va'da qila olmaydi.</p>
+</div>
+</section>
+
+<section id="savollar" style="max-width: 1180px; margin: 0 auto; padding: 88px 24px; display: flex; flex-direction: column; gap: 28px">
+<h2 style="margin: 0; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -0.01em">Savol-javob</h2>
+<div style="display: flex; flex-direction: column">
+<div style="border-top: 1px solid #252E3B; padding: 22px 0; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-size: 19px; font-weight: 600">Qaysi broker bilan ishlaydi?</h3><p style="margin: 0; color: #B4BAC4">Hedging ruxsat etilgan, XAUUSD savdosi bor istalgan MT5 broker. Cent hisob tavsiya etiladi.</p></div>
+<div style="border-top: 1px solid #252E3B; padding: 22px 0; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-size: 19px; font-weight: 600">Kompyuterni doim yoqib qo'yish kerakmi?</h3><p style="margin: 0; color: #B4BAC4">Ha, robot uzluksiz ishlashi uchun kompyuter yoki VPS 24 soat yoniq bo'lishi kerak.</p></div>
+<div style="border-top: 1px solid #252E3B; padding: 22px 0; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-size: 19px; font-weight: 600">Avval sinab ko'rsam bo'ladimi?</h3><p style="margin: 0; color: #B4BAC4">[DEMO VERSIYA SHARTLARI]</p></div>
+<div style="border-top: 1px solid #252E3B; border-bottom: 1px solid #252E3B; padding: 22px 0; display: flex; flex-direction: column; gap: 6px"><h3 style="margin: 0; font-size: 19px; font-weight: 600">Qanday to'lov qilinadi?</h3><p style="margin: 0; color: #B4BAC4">[TO'LOV USULLARI]</p></div>
+</div>
+</section>
+
+<footer id="aloqa" style="background: #0A0D12; border-top: 1px solid #1E2530">
+<div style="max-width: 1180px; margin: 0 auto; padding: 64px 24px 48px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Sora', sans-serif; font-weight: 700; font-size: 26px">Savolingiz bormi?</span>
+<span style="color: #B4BAC4">Telegram orqali yozing, tez javob beraman.</span>
+</div>
+<a href="https://t.me/" style="background: #E8B04B; color: #14110A; text-decoration: none; font-weight: 600; padding: 16px 28px; border-radius: 10px">Telegram: [@USERNAME]</a>
+</div>
+<p style="margin: 0; color: #8A919C; font-size: 14px; border-top: 1px solid #1E2530; padding-top: 24px">Forex va CFD savdosi yuqori risk bilan bog'liq. Bu sayt investitsiya maslahati emas. © 2026 Umidrobot</p>
+</div>
+</footer>
+
+</div>
+
+</body>
+</html>
